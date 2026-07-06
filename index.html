@@ -1079,6 +1079,149 @@
         gap: clamp(12px, 1.6vw, 20px);
       }
 
+      .clip-project {
+        min-width: 0;
+        border: 1px solid rgb(245 241 232 / 0.12);
+        border-radius: 16px;
+        background: rgb(245 241 232 / 0.04);
+        overflow: clip;
+        transition: border-color 180ms ease, background 180ms ease;
+      }
+
+      .clip-project[open] {
+        grid-column: 1 / -1;
+        border-color: rgb(242 107 47 / 0.58);
+        background: rgb(245 241 232 / 0.065);
+      }
+
+      .clip-project summary {
+        list-style: none;
+        cursor: pointer;
+      }
+
+      .clip-project summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .clip-summary {
+        display: grid;
+        grid-template-columns: minmax(116px, 0.42fr) minmax(0, 1fr);
+        min-height: 118px;
+      }
+
+      .clip-thumb {
+        position: relative;
+        min-height: 118px;
+        background: #050505;
+        overflow: hidden;
+      }
+
+      .clip-thumb img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .clip-copy {
+        display: grid;
+        align-content: center;
+        gap: 10px;
+        padding: clamp(14px, 2vw, 22px);
+      }
+
+      .clip-copy h4 {
+        margin: 0;
+        font-size: clamp(1.05rem, 1.7vw, 1.55rem);
+        line-height: 1.04;
+      }
+
+      .clip-meta {
+        margin: 0;
+        color: rgb(245 241 232 / 0.62);
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .clip-expand {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        width: 34px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgb(245 241 232 / 0.28);
+        border-radius: 50%;
+        color: var(--white);
+        background: rgb(5 5 5 / 0.66);
+        font-size: 1.15rem;
+        line-height: 1;
+        transition: transform 180ms ease, border-color 180ms ease, color 180ms ease;
+      }
+
+      .clip-project[open] .clip-expand {
+        transform: rotate(45deg);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .clip-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);
+        gap: clamp(12px, 1.6vw, 20px);
+        padding: 0 clamp(10px, 1.6vw, 18px) clamp(12px, 1.8vw, 20px);
+      }
+
+      .clip-panel video {
+        width: 100%;
+        max-height: 72vh;
+        display: block;
+        border-radius: 12px;
+        background: #000;
+      }
+
+      .clip-panel.is-single video {
+        grid-column: 1 / -1;
+      }
+
+      .reference-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .reference-grid figure {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 8px;
+        border: 1px solid rgb(245 241 232 / 0.12);
+        border-radius: 12px;
+        background: rgb(5 5 5 / 0.34);
+      }
+
+      .reference-grid img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        display: block;
+        border-radius: 8px;
+        object-fit: contain;
+        background: rgb(245 241 232 / 0.92);
+        cursor: zoom-in;
+      }
+
+      .reference-grid figcaption {
+        color: rgb(245 241 232 / 0.68);
+        font-size: 0.68rem;
+        font-weight: 850;
+        letter-spacing: 0.08em;
+        line-height: 1.25;
+        text-transform: uppercase;
+      }
+
       .ai-clip {
         display: grid;
         gap: 10px;
@@ -1187,6 +1330,10 @@
         .video-expanded {
           grid-template-columns: 1fr;
         }
+
+        .clip-panel {
+          grid-template-columns: 1fr;
+        }
       }
 
       @media (max-width: 760px) {
@@ -1202,6 +1349,10 @@
           grid-column: auto;
         }
 
+        .project-card[open].video-project {
+          grid-column: 1 / -1;
+        }
+
         .project-cover,
         .video-project .project-cover {
           aspect-ratio: 16 / 10;
@@ -1213,6 +1364,36 @@
 
         .ai-clip-grid,
         .process-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .clip-project[open] {
+          grid-column: auto;
+        }
+
+        .clip-summary {
+          grid-template-columns: 96px minmax(0, 1fr);
+          min-height: 92px;
+        }
+
+        .clip-thumb {
+          min-height: 92px;
+        }
+
+        .clip-copy {
+          gap: 7px;
+          padding: 12px;
+        }
+
+        .clip-copy h4 {
+          font-size: 0.96rem;
+        }
+
+        .clip-meta {
+          font-size: 0.56rem;
+        }
+
+        .reference-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -1556,8 +1737,46 @@
           display: none;
         }
 
+        .project-card[open].video-project {
+          grid-column: 1 / -1;
+        }
+
         .ai-clip-grid,
         .process-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .clip-project[open] {
+          grid-column: auto;
+        }
+
+        .clip-summary {
+          grid-template-columns: 96px minmax(0, 1fr);
+          min-height: 92px;
+        }
+
+        .clip-thumb {
+          min-height: 92px;
+        }
+
+        .clip-copy {
+          gap: 7px;
+          padding: 12px;
+        }
+
+        .clip-copy h4 {
+          font-size: 0.96rem;
+        }
+
+        .clip-meta {
+          font-size: 0.56rem;
+        }
+
+        .clip-panel {
+          grid-template-columns: 1fr;
+        }
+
+        .reference-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -1663,10 +1882,17 @@
           category: "Cinema / VFX / Campanhas",
           note: "Cenas cinematográficas, VFX, ação e impacto visual para campanhas e filmes de marca.",
           media: [
-            { type: "video", label: "Video", title: "Dragon knight sequence", src: "assets/videos/ai/cinematic-vfx-dragon-knight.mp4" },
-            { type: "video", label: "Video", title: "Jet pursuit", src: "assets/videos/ai/cinematic-vfx-jet.mp4" },
-            { type: "video", label: "Video", title: "Battlefield soldiers", src: "assets/videos/ai/cinematic-vfx-soldier.mp4" },
-            { type: "video", label: "Video", title: "Tank shot", src: "assets/videos/ai/cinematic-vfx-tank.mp4" },
+            { title: "Dragon knight sequence", src: "assets/videos/ai/cinematic-vfx-dragon-knight.mp4", references: [
+              { title: "Character reference", src: "assets/process/ai/cinematic-dragon-source.jpg" },
+              { title: "Style frame", src: "assets/process/ai/cinematic-world-frame.jpg" },
+              { title: "Look board", src: "assets/process/ai/cinematic-style-board.jpg" },
+            ] },
+            { title: "Jet pursuit", src: "assets/videos/ai/cinematic-vfx-jet.mp4", references: [
+              { title: "World frame", src: "assets/process/ai/cinematic-world-frame.jpg" },
+              { title: "Style board", src: "assets/process/ai/cinematic-style-board.jpg" },
+            ] },
+            { title: "Battlefield soldiers", src: "assets/videos/ai/cinematic-vfx-soldier.mp4" },
+            { title: "Tank shot", src: "assets/videos/ai/cinematic-vfx-tank.mp4" },
           ],
         },
         {
@@ -1675,10 +1901,16 @@
           category: "Esporte / Ritmo / Performance",
           note: "Vídeos de performance com ritmo, velocidade e impacto para comerciais, reels e campanhas.",
           media: [
-            { type: "video", label: "Video", title: "Motorcycle tunnel", src: "assets/videos/ai/sports-performance-bike.mp4" },
-            { type: "video", label: "Video", title: "Night car shot", src: "assets/videos/ai/sports-performance-car.mp4" },
-            { type: "video", label: "Video", title: "Dancer spotlight", src: "assets/videos/ai/sports-performance-dancer.mp4" },
-            { type: "video", label: "Video", title: "Basketball dunk", src: "assets/videos/ai/sports-performance-dunk.mp4" },
+            { title: "Motorcycle tunnel", src: "assets/videos/ai/sports-performance-bike.mp4", references: [
+              { title: "Motion reference", src: "assets/process/ai/sports-bike-source.jpg" },
+            ] },
+            { title: "Night car shot", src: "assets/videos/ai/sports-performance-car.mp4" },
+            { title: "Dancer spotlight", src: "assets/videos/ai/sports-performance-dancer.mp4", references: [
+              { title: "Pose reference", src: "assets/process/ai/sports-dancer-source.jpg" },
+            ] },
+            { title: "Basketball dunk", src: "assets/videos/ai/sports-performance-dunk.mp4", references: [
+              { title: "Action reference", src: "assets/process/ai/sports-mma-source.jpg" },
+            ] },
           ],
         },
         {
@@ -1687,10 +1919,15 @@
           category: "Natureza / Animais / Atmosfera",
           note: "Cenas de natureza, animais e atmosfera para storytelling, inserts cinematográficos e marcas.",
           media: [
-            { type: "video", label: "Video", title: "Eagle flight", src: "assets/videos/ai/nature-wildlife-eagle.mp4" },
-            { type: "video", label: "Video", title: "Whale scene", src: "assets/videos/ai/nature-wildlife-whale.mp4" },
-            { type: "video", label: "Video", title: "Wolf pack", src: "assets/videos/ai/nature-wildlife-wolves.mp4" },
-            { type: "video", label: "Video", title: "Jellyfish motion", src: "assets/videos/ai/nature-wildlife-jellyfish.mp4" },
+            { title: "Eagle flight", src: "assets/videos/ai/nature-wildlife-eagle.mp4", references: [
+              { title: "Scene reference", src: "assets/process/ai/nature-eagle-scene.jpg" },
+              { title: "Character sheet", src: "assets/process/ai/nature-eagle-character-sheet.jpg" },
+            ] },
+            { title: "Whale scene", src: "assets/videos/ai/nature-wildlife-whale.mp4" },
+            { title: "Wolf pack", src: "assets/videos/ai/nature-wildlife-wolves.mp4", references: [
+              { title: "Character sheet", src: "assets/process/ai/nature-wolf-character-sheet.jpg" },
+            ] },
+            { title: "Jellyfish motion", src: "assets/videos/ai/nature-wildlife-jellyfish.mp4" },
           ],
         },
         {
@@ -1699,10 +1936,17 @@
           category: "Publicidade / Produto / Social",
           note: "Filmes publicitários, produto, gastronomia, música e universos visuais para marcas.",
           media: [
-            { type: "video", label: "Video", title: "Chef / food film", src: "assets/videos/ai/stylized-branded-cooking.mp4" },
-            { type: "video", label: "Video", title: "Glass forest", src: "assets/videos/ai/stylized-branded-glass-forest.mp4" },
-            { type: "video", label: "Video", title: "Sea burst", src: "assets/videos/ai/stylized-branded-sea-burst.mp4" },
-            { type: "video", label: "Video", title: "Vocal performance", src: "assets/videos/ai/stylized-branded-vocal.mp4" },
+            { title: "Chef / food film", src: "assets/videos/ai/stylized-branded-cooking.mp4", references: [
+              { title: "Food reference", src: "assets/process/ai/branded-cooking-source.jpg" },
+            ] },
+            { title: "Glass forest", src: "assets/videos/ai/stylized-branded-glass-forest.mp4", references: [
+              { title: "Glass reference", src: "assets/process/ai/branded-glass-source.jpg" },
+              { title: "Art process board", src: "assets/process/ai/branded-art-process-board.jpg" },
+            ] },
+            { title: "Sea burst", src: "assets/videos/ai/stylized-branded-sea-burst.mp4" },
+            { title: "Vocal performance", src: "assets/videos/ai/stylized-branded-vocal.mp4", references: [
+              { title: "Character reference", src: "assets/process/ai/branded-character-source.jpg" },
+            ] },
           ],
         },
       ];
@@ -1953,6 +2197,22 @@
           .replace(/\.mp4$/i, ".jpg");
       }
 
+      function renderReferences(item) {
+        const references = item.references || [];
+        if (!references.length) return "";
+
+        return `
+          <div class="reference-grid" aria-label="Arquivos de referencia do projeto">
+            ${references.map((reference) => `
+              <figure>
+                <img src="${reference.src}" alt="${reference.title}" loading="lazy" decoding="async" draggable="false" />
+                <figcaption>${reference.title}</figcaption>
+              </figure>
+            `).join("")}
+          </div>
+        `;
+      }
+
       function renderVideoProjects() {
         const grid = document.querySelector("[data-video-projects]");
         if (!grid) return;
@@ -1961,21 +2221,26 @@
         videoProjects.forEach((project) => {
           const media = project.media || [];
           const clipMarkup = media.map((item) => {
-            if (item.type === "image") {
-              return `
-                <figure class="ai-clip is-process">
-                  <img src="${item.src}" alt="${item.title}" loading="lazy" decoding="async" draggable="false" />
-                  <figcaption><span class="clip-type">${item.label}</span>${item.title}</figcaption>
-                </figure>
-              `;
-            }
-
             const clipPoster = videoPoster(item.src);
+            const referenceCount = item.references?.length || 0;
+            const fileCountLabel = referenceCount ? `${referenceCount + 1} arquivos` : "1 video";
             return `
-              <figure class="ai-clip">
-                <video controls playsinline preload="metadata" poster="${clipPoster}" src="${item.src}"></video>
-                <figcaption><span class="clip-type">${item.label}</span>${item.title}</figcaption>
-              </figure>
+              <details class="clip-project">
+                <summary class="clip-summary">
+                  <div class="clip-thumb">
+                    <img src="${clipPoster}" alt="${item.title}" loading="lazy" decoding="async" draggable="false" />
+                    <span class="clip-expand" aria-hidden="true">+</span>
+                  </div>
+                  <div class="clip-copy">
+                    <p class="clip-meta">${fileCountLabel}</p>
+                    <h4>${item.title}</h4>
+                  </div>
+                </summary>
+                <div class="clip-panel ${referenceCount ? "" : "is-single"}">
+                  <video controls playsinline preload="metadata" poster="${clipPoster}" src="${item.src}"></video>
+                  ${renderReferences(item)}
+                </div>
+              </details>
             `;
           }).join("");
           const details = document.createElement("details");
@@ -1999,8 +2264,17 @@
             </div>
           `;
           grid.append(details);
-          details.querySelectorAll(".ai-clip img").forEach((image) => {
+          details.querySelectorAll(".reference-grid img").forEach((image) => {
             image.addEventListener("click", () => openLightbox(image));
+          });
+          details.querySelectorAll(".ai-clip-grid").forEach((clipGrid) => {
+            clipGrid.addEventListener("toggle", (event) => {
+              const opened = event.target;
+              if (!opened.matches("details.clip-project") || !opened.open) return;
+              clipGrid.querySelectorAll("details.clip-project[open]").forEach((card) => {
+                if (card !== opened) card.open = false;
+              });
+            }, true);
           });
         });
       }
