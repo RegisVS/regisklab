@@ -892,6 +892,35 @@
         aspect-ratio: 16 / 9;
       }
 
+      .video-project > .project-summary {
+        min-height: clamp(92px, 9vw, 132px);
+        display: flex;
+        align-items: center;
+      }
+
+      .video-project > .project-summary .project-body {
+        width: 100%;
+        padding: clamp(24px, 3vw, 38px);
+      }
+
+      .video-project > .project-summary .project-title-row {
+        align-items: center;
+      }
+
+      .video-project > .project-summary h3 {
+        font-size: clamp(1.5rem, 3.2vw, 2.65rem);
+        line-height: 0.95;
+      }
+
+      .video-project > .project-summary .project-meta,
+      .video-project > .project-summary .project-description {
+        display: none;
+      }
+
+      .video-project .video-expanded {
+        display: block;
+      }
+
       .project-cover img,
       .project-cover video {
         width: 100%;
@@ -1024,6 +1053,10 @@
         grid-template-columns: minmax(0, 1fr) 280px;
         gap: clamp(14px, 2vw, 26px);
         align-items: start;
+      }
+
+      .video-project .video-expanded {
+        display: block;
       }
 
       .video-expanded video {
@@ -1534,6 +1567,7 @@
     <header class="topbar">
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav" id="site-nav" aria-label="Navegacao">
+        <a href="#showreel" data-showreel-open>Showreel</a>
         <a href="#cinematic-vfx">Cinematic & VFX</a>
         <a href="#sports-performance">Sports</a>
         <a href="#nature-wildlife">Nature</a>
@@ -1559,11 +1593,6 @@
           </video>
         </div>
         <div class="hero-controls" aria-label="Controles do showreel">
-          <button class="hero-action hero-play" type="button" aria-label="Abrir showreel">
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="8 5 19 12 8 19 8 5"></polygon>
-            </svg>
-          </button>
           <button class="hero-action hero-sound" type="button" aria-label="Ativar som do video principal" aria-pressed="false">
             <svg class="sound-off" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -1752,7 +1781,6 @@
       const showreelViewer = document.querySelector(".showreel-viewer");
       const showreelPlayer = showreelViewer.querySelector(".showreel-player");
       const heroVideo = document.querySelector(".video-bg video");
-      const heroPlayButton = document.querySelector(".hero-play");
       const heroSoundButton = document.querySelector(".hero-sound");
       const topbar = document.querySelector(".topbar");
       const menuToggle = document.querySelector(".menu-toggle");
@@ -1932,8 +1960,6 @@
 
         videoProjects.forEach((project) => {
           const media = project.media || [];
-          const cover = media.find((item) => item.type === "video") || media[0];
-          const poster = videoPoster(cover.src);
           const clipMarkup = media.map((item) => {
             if (item.type === "image") {
               return `
@@ -1957,17 +1983,11 @@
           details.id = project.slug;
           details.innerHTML = `
             <summary class="project-summary">
-              <div class="project-cover">
-                <video muted playsinline preload="metadata" poster="${poster}" src="${cover.src}"></video>
-                <span class="project-count">${media.length} videos</span>
-              </div>
               <div class="project-body">
-                <p class="project-meta">${project.category}</p>
                 <div class="project-title-row">
                   <h3>${project.title}</h3>
                   <span class="project-expand" aria-hidden="true">+</span>
                 </div>
-                <p class="project-description">${project.note}</p>
               </div>
             </summary>
             <div class="project-panel">
@@ -1975,7 +1995,6 @@
                 <div class="ai-clip-grid">
                   ${clipMarkup}
                 </div>
-                <p class="video-notes">${project.note}</p>
               </div>
             </div>
           `;
@@ -2055,7 +2074,11 @@
       showreelViewer.addEventListener("click", (event) => {
         if (event.target === showreelViewer) closeShowreelViewer();
       });
-      heroPlayButton?.addEventListener("click", openShowreelViewer);
+      document.querySelector("[data-showreel-open]")?.addEventListener("click", (event) => {
+        event.preventDefault();
+        openShowreelViewer();
+        closeMenu();
+      });
 
       document.querySelector("[data-cv-open]").addEventListener("click", (event) => {
         event.preventDefault();
