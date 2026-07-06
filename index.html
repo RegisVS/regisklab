@@ -6,18 +6,18 @@
     <title>Régis Kraeski</title>
     <meta
       name="description"
-      content="Régis Kraeski - AI video portfolio, cinematic direction, editing and creative process."
+      content="Régis Kraeski - AI video portfolio, cinematic direction, editing and showreel."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://regisvs.github.io/regisklab/" />
     <meta property="og:title" content="Régis Kraeski" />
-    <meta property="og:description" content="AI video portfolio, cinematic direction, editing and creative process." />
+    <meta property="og:description" content="AI video portfolio, cinematic direction, editing and showreel." />
     <meta property="og:image" content="https://regisvs.github.io/regisklab/assets/social-thumb.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Régis Kraeski" />
-    <meta name="twitter:description" content="AI video portfolio, cinematic direction, editing and creative process." />
+    <meta name="twitter:description" content="AI video portfolio, cinematic direction, editing and showreel." />
     <meta name="twitter:image" content="https://regisvs.github.io/regisklab/assets/social-thumb.png" />
     <meta name="theme-color" content="#050505" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -229,27 +229,33 @@
         width: min(1280px, 100%);
       }
 
-      .hero-sound {
+      .hero-controls {
         position: absolute;
         right: clamp(18px, 3vw, 42px);
         bottom: clamp(18px, 3vw, 38px);
         z-index: 5;
+        display: flex;
+        gap: 10px;
+      }
+
+      .hero-action {
         width: 44px;
-        min-height: 44px;
+        height: 44px;
+        flex: 0 0 44px;
         border: 1px solid rgb(245 241 232 / 0.36);
         border-radius: 50%;
         padding: 0;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: var(--paper);
+        color: var(--white);
         background: rgb(5 5 5 / 0.42);
         cursor: pointer;
         backdrop-filter: blur(12px);
         transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
       }
 
-      .hero-sound svg {
+      .hero-action svg {
         width: 20px;
         height: 20px;
         stroke: currentColor;
@@ -273,7 +279,7 @@
         color: var(--accent);
       }
 
-      .hero-sound:hover {
+      .hero-action:hover {
         transform: translateY(-1px);
         border-color: rgb(245 241 232 / 0.58);
       }
@@ -333,6 +339,7 @@
       }
 
       .strip {
+        scroll-margin-top: 118px;
         padding: clamp(34px, 4.6vw, 60px) 0 clamp(54px, 7vw, 92px);
         border-bottom: 1px solid var(--line);
       }
@@ -630,7 +637,8 @@
         object-fit: contain;
       }
 
-      .cv-viewer {
+      .cv-viewer,
+      .showreel-viewer {
         position: fixed;
         inset: 0;
         z-index: 82;
@@ -640,8 +648,17 @@
         background: rgb(0 0 0 / 0.92);
       }
 
-      .cv-viewer.is-open {
+      .cv-viewer.is-open,
+      .showreel-viewer.is-open {
         display: grid;
+      }
+
+      .showreel-player {
+        width: min(96vw, 1280px);
+        max-height: 90vh;
+        border: 1px solid rgb(245 241 232 / 0.28);
+        border-radius: 4px;
+        background: #000;
       }
 
       .cv-frame {
@@ -815,8 +832,13 @@
         gap: clamp(16px, 2vw, 26px);
       }
 
+      .videos .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .project-card {
         min-width: 0;
+        scroll-margin-top: 118px;
         border: 1px solid rgb(245 241 232 / 0.16);
         border-radius: 22px;
         background:
@@ -1222,12 +1244,10 @@
           transform: translateY(8vh);
         }
 
-        .hero-sound {
+        .hero-controls {
           top: 82px;
           right: 24px;
           bottom: auto;
-          width: 46px;
-          min-height: 46px;
           z-index: 31;
         }
 
@@ -1514,8 +1534,10 @@
     <header class="topbar">
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav" id="site-nav" aria-label="Navegacao">
-        <a href="#videos">AI Videos</a>
-        <a href="#processo">Processo</a>
+        <a href="#cinematic-vfx">Cinematic & VFX</a>
+        <a href="#sports-performance">Sports</a>
+        <a href="#nature-wildlife">Nature</a>
+        <a href="#stylized-branded-films">Stylized</a>
         <a href="assets/curriculo-regis-2026.pdf" data-cv-open>Currículo</a>
         <a href="#contact">Contato</a>
       </nav>
@@ -1536,18 +1558,25 @@
             <source src="assets/videos/ai/hero-ai-showcase.mp4" type="video/mp4" />
           </video>
         </div>
-        <button class="hero-sound" type="button" aria-label="Ativar som do video principal" aria-pressed="false">
-          <svg class="sound-off" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="22" y1="9" x2="16" y2="15"></line>
-            <line x1="16" y1="9" x2="22" y2="15"></line>
-          </svg>
-          <svg class="sound-on" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
-            <path d="M19 5a10 10 0 0 1 0 14"></path>
-          </svg>
-        </button>
+        <div class="hero-controls" aria-label="Controles do showreel">
+          <button class="hero-action hero-play" type="button" aria-label="Abrir showreel">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="8 5 19 12 8 19 8 5"></polygon>
+            </svg>
+          </button>
+          <button class="hero-action hero-sound" type="button" aria-label="Ativar som do video principal" aria-pressed="false">
+            <svg class="sound-off" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="22" y1="9" x2="16" y2="15"></line>
+              <line x1="16" y1="9" x2="22" y2="15"></line>
+            </svg>
+            <svg class="sound-on" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
+              <path d="M19 5a10 10 0 0 1 0 14"></path>
+            </svg>
+          </button>
+        </div>
         <div class="hero-inner">
           <p class="micro">AI Video / Direction / Creative Tech</p>
           <h1>Régis Kraeski</h1>
@@ -1567,41 +1596,6 @@
           </summary>
           <div class="section-panel">
             <div class="project-grid" data-video-projects aria-label="Projetos de video com IA"></div>
-          </div>
-        </details>
-      </section>
-
-      <section class="strip process" id="processo">
-        <details class="section-accordion">
-          <summary class="strip-head section-summary">
-            <div>
-              <h2>Processo</h2>
-            </div>
-            <span class="section-expand" aria-hidden="true">+</span>
-          </summary>
-          <div class="section-panel">
-            <div class="process-grid" aria-label="Processo de criacao com IA">
-              <article class="process-card">
-                <p class="project-meta">01 / Concept</p>
-                <h3>Ideia e direção visual</h3>
-                <p>Definição de estética, ritmo, referência, formato e intenção do vídeo antes de gerar qualquer take.</p>
-              </article>
-              <article class="process-card">
-                <p class="project-meta">02 / Prompt</p>
-                <h3>Prompt craft e geração</h3>
-                <p>Construção de prompts, variações, seed/reference control e seleção dos takes com melhor leitura.</p>
-              </article>
-              <article class="process-card">
-                <p class="project-meta">03 / Edit</p>
-                <h3>Curadoria e montagem</h3>
-                <p>Corte dos melhores 4-10 segundos, organização por tema e edição para impacto rápido em social e ads.</p>
-              </article>
-              <article class="process-card">
-                <p class="project-meta">04 / Finish</p>
-                <h3>Finalização e entrega</h3>
-                <p>Color, sound, captions, framing horizontal/vertical e exports prontos para portfolio, cliente ou campanha.</p>
-              </article>
-            </div>
           </div>
         </details>
       </section>
@@ -1629,24 +1623,34 @@
       <iframe class="cv-frame" title="Currículo de Régis Kraeski" src="" data-src="assets/curriculo-regis-2026.pdf"></iframe>
     </div>
 
+    <div class="showreel-viewer" aria-hidden="true">
+      <button class="close" type="button" aria-label="Fechar showreel">x</button>
+      <video
+        class="showreel-player"
+        controls
+        playsinline
+        preload="metadata"
+        poster="assets/video-posters/ai/hero-ai-showcase.jpg"
+      ></video>
+    </div>
+
     <script>
       const videoProjects = [
         {
           title: "Cinematic & VFX",
+          slug: "cinematic-vfx",
           category: "AI scenes / VFX / Epic motion",
-          note: "Cinematic AI takes with fantasy, military, aerial and VFX language. Includes final videos plus source frames/style boards to show how the scene is built.",
+          note: "Cinematic AI takes with fantasy, military, aerial and VFX language.",
           media: [
             { type: "video", label: "Final video", title: "Dragon knight sequence", src: "assets/videos/ai/cinematic-vfx-dragon-knight.mp4" },
             { type: "video", label: "Final video", title: "Jet pursuit", src: "assets/videos/ai/cinematic-vfx-jet.mp4" },
             { type: "video", label: "Final video", title: "Battlefield soldiers", src: "assets/videos/ai/cinematic-vfx-soldier.mp4" },
             { type: "video", label: "Final video", title: "Tank shot", src: "assets/videos/ai/cinematic-vfx-tank.mp4" },
-            { type: "image", label: "Source frame", title: "Dragon knight reference", src: "assets/process/ai/cinematic-dragon-source.jpg" },
-            { type: "image", label: "Style board", title: "Epic world direction", src: "assets/process/ai/cinematic-style-board.jpg" },
-            { type: "image", label: "World frame", title: "Temple environment", src: "assets/process/ai/cinematic-world-frame.jpg" },
           ],
         },
         {
           title: "Sports & Performance",
+          slug: "sports-performance",
           category: "Motion / Rhythm / Impact",
           note: "Performance-driven clips with speed, impact and clean silhouettes for reels, hype edits, creators and social campaigns.",
           media: [
@@ -1654,13 +1658,11 @@
             { type: "video", label: "Final video", title: "Night car shot", src: "assets/videos/ai/sports-performance-car.mp4" },
             { type: "video", label: "Final video", title: "Dancer spotlight", src: "assets/videos/ai/sports-performance-dancer.mp4" },
             { type: "video", label: "Final video", title: "Basketball dunk", src: "assets/videos/ai/sports-performance-dunk.mp4" },
-            { type: "image", label: "Source frame", title: "Bike prompt frame", src: "assets/process/ai/sports-bike-source.jpg" },
-            { type: "image", label: "Source frame", title: "Dancer reference", src: "assets/process/ai/sports-dancer-source.jpg" },
-            { type: "image", label: "Source frame", title: "MMA reference", src: "assets/process/ai/sports-mma-source.jpg" },
           ],
         },
         {
           title: "Nature & Wildlife",
+          slug: "nature-wildlife",
           category: "AI worlds / Animals / Atmosphere",
           note: "Animal, landscape and atmosphere studies for cinematic inserts, environmental storytelling and brand worlds.",
           media: [
@@ -1668,24 +1670,18 @@
             { type: "video", label: "Final video", title: "Whale scene", src: "assets/videos/ai/nature-wildlife-whale.mp4" },
             { type: "video", label: "Final video", title: "Wolf pack", src: "assets/videos/ai/nature-wildlife-wolves.mp4" },
             { type: "video", label: "Final video", title: "Jellyfish motion", src: "assets/videos/ai/nature-wildlife-jellyfish.mp4" },
-            { type: "image", label: "Character sheet", title: "Eagle sheet", src: "assets/process/ai/nature-eagle-character-sheet.jpg" },
-            { type: "image", label: "Scene frame", title: "Eagle environment", src: "assets/process/ai/nature-eagle-scene.jpg" },
-            { type: "image", label: "Character sheet", title: "Wolfie sheet", src: "assets/process/ai/nature-wolf-character-sheet.jpg" },
           ],
         },
         {
           title: "Stylized & Branded Films",
+          slug: "stylized-branded-films",
           category: "Commercial / Concept / Social",
-          note: "Commercial concepts, food/product scenes, music visuals and stylized brand worlds with process frames included.",
+          note: "Commercial concepts, food/product scenes, music visuals and stylized brand worlds.",
           media: [
             { type: "video", label: "Final video", title: "Chef / food film", src: "assets/videos/ai/stylized-branded-cooking.mp4" },
             { type: "video", label: "Final video", title: "Glass forest", src: "assets/videos/ai/stylized-branded-glass-forest.mp4" },
             { type: "video", label: "Final video", title: "Sea burst", src: "assets/videos/ai/stylized-branded-sea-burst.mp4" },
             { type: "video", label: "Final video", title: "Vocal performance", src: "assets/videos/ai/stylized-branded-vocal.mp4" },
-            { type: "image", label: "Source frame", title: "Cooking setup", src: "assets/process/ai/branded-cooking-source.jpg" },
-            { type: "image", label: "Source frame", title: "Glass forest direction", src: "assets/process/ai/branded-glass-source.jpg" },
-            { type: "image", label: "Process board", title: "Instrument style board", src: "assets/process/ai/branded-art-process-board.jpg" },
-            { type: "image", label: "Character source", title: "Stylized character", src: "assets/process/ai/branded-character-source.jpg" },
           ],
         },
       ];
@@ -1761,7 +1757,10 @@
       const lightboxImage = lightbox.querySelector("img");
       const cvViewer = document.querySelector(".cv-viewer");
       const cvFrame = cvViewer.querySelector(".cv-frame");
+      const showreelViewer = document.querySelector(".showreel-viewer");
+      const showreelPlayer = showreelViewer.querySelector(".showreel-player");
       const heroVideo = document.querySelector(".video-bg video");
+      const heroPlayButton = document.querySelector(".hero-play");
       const heroSoundButton = document.querySelector(".hero-sound");
       const topbar = document.querySelector(".topbar");
       const menuToggle = document.querySelector(".menu-toggle");
@@ -1842,6 +1841,25 @@
         cvViewer.classList.remove("is-open");
         cvViewer.setAttribute("aria-hidden", "true");
         cvFrame.removeAttribute("src");
+      }
+
+      function openShowreelViewer() {
+        const source = heroVideo?.currentSrc || heroVideo?.getAttribute("src") || heroVideo?.dataset.desktopSrc;
+        if (source) showreelPlayer.src = source;
+        showreelViewer.classList.add("is-open");
+        showreelViewer.setAttribute("aria-hidden", "false");
+        showreelPlayer.currentTime = 0;
+        showreelPlayer.muted = false;
+        showreelPlayer.volume = 0.85;
+        showreelPlayer.play().catch(() => {});
+      }
+
+      function closeShowreelViewer() {
+        showreelPlayer.pause();
+        showreelPlayer.removeAttribute("src");
+        showreelPlayer.load();
+        showreelViewer.classList.remove("is-open");
+        showreelViewer.setAttribute("aria-hidden", "true");
       }
 
       function imageSource(project, item) {
@@ -1944,11 +1962,12 @@
           }).join("");
           const details = document.createElement("details");
           details.className = "project-card video-project";
+          details.id = project.slug;
           details.innerHTML = `
             <summary class="project-summary">
               <div class="project-cover">
                 <video muted playsinline preload="metadata" poster="${poster}" src="${cover.src}"></video>
-                <span class="project-count">${media.length} itens</span>
+                <span class="project-count">${media.length} videos</span>
               </div>
               <div class="project-body">
                 <p class="project-meta">${project.category}</p>
@@ -2040,6 +2059,11 @@
       cvViewer.addEventListener("click", (event) => {
         if (event.target === cvViewer) closeCvViewer();
       });
+      showreelViewer.querySelector(".close").addEventListener("click", closeShowreelViewer);
+      showreelViewer.addEventListener("click", (event) => {
+        if (event.target === showreelViewer) closeShowreelViewer();
+      });
+      heroPlayButton?.addEventListener("click", openShowreelViewer);
 
       document.querySelector("[data-cv-open]").addEventListener("click", (event) => {
         event.preventDefault();
@@ -2050,6 +2074,7 @@
         if (event.key === "Escape") {
           closeLightbox();
           closeCvViewer();
+          closeShowreelViewer();
           closeMenu();
         }
       });
@@ -2072,14 +2097,16 @@
       document.querySelectorAll('.nav a[href^="#"]').forEach((link) => {
         link.addEventListener("click", () => {
           const target = document.querySelector(link.getAttribute("href"));
-          const accordion = target?.querySelector(".section-accordion");
+          const accordion = target?.querySelector(".section-accordion") || target?.closest("section")?.querySelector(".section-accordion");
           if (accordion) accordion.open = true;
+          if (target?.matches("details.project-card")) target.open = true;
         });
       });
 
       const initialHashTarget = window.location.hash ? document.querySelector(window.location.hash) : null;
-      const initialAccordion = initialHashTarget?.querySelector(".section-accordion");
+      const initialAccordion = initialHashTarget?.querySelector(".section-accordion") || initialHashTarget?.closest("section")?.querySelector(".section-accordion");
       if (initialAccordion) initialAccordion.open = true;
+      if (initialHashTarget?.matches("details.project-card")) initialHashTarget.open = true;
 
       document.querySelectorAll(".project-grid").forEach((grid) => {
         grid.addEventListener("toggle", (event) => {
