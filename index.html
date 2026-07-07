@@ -725,6 +725,74 @@
         line-height: 1.45;
       }
 
+      .legacy-carousel {
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        display: grid;
+        gap: 16px;
+      }
+
+      .legacy-rail {
+        display: flex;
+        gap: clamp(12px, 1.5vw, 20px);
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: clamp(18px, 5vw, 72px);
+        padding: 0 clamp(18px, 5vw, 72px) 8px;
+        cursor: grab;
+        user-select: none;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .legacy-rail.is-dragging {
+        cursor: grabbing;
+        scroll-snap-type: none;
+      }
+
+      .legacy-rail::-webkit-scrollbar {
+        display: none;
+      }
+
+      .legacy-slide {
+        flex: 0 0 auto;
+        width: clamp(220px, 26vw, 420px);
+        margin: 0;
+        border: 1px solid rgb(245 241 232 / 0.12);
+        border-radius: 16px;
+        background: rgb(245 241 232 / 0.04);
+        overflow: clip;
+        scroll-snap-align: center;
+      }
+
+      .legacy-slide img {
+        display: block;
+        width: 100%;
+        height: clamp(280px, 35vw, 560px);
+        object-fit: contain;
+        cursor: zoom-in;
+      }
+
+      .legacy-gallery[data-project-gallery="design"] .legacy-slide {
+        background: #f5f1e8;
+      }
+
+      .legacy-gallery[data-project-gallery="design"] .legacy-slide img {
+        object-fit: contain;
+      }
+
+      .legacy-carousel-controls {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .legacy-carousel-controls .arrow {
+        width: 46px;
+        font-size: 1.35rem;
+      }
+
       .lightbox {
         position: fixed;
         inset: 0;
@@ -1977,21 +2045,39 @@
                 <h3>Fotografia</h3>
                 <p>Selecao de imagens autorais e projetos fotograficos.</p>
               </div>
-              <div class="project-grid"></div>
+              <div class="legacy-carousel">
+                <div class="legacy-rail" data-legacy-rail></div>
+                <div class="legacy-carousel-controls">
+                  <button class="arrow" type="button" data-legacy-scroll="-1" aria-label="Ver imagens anteriores">&lt;</button>
+                  <button class="arrow" type="button" data-legacy-scroll="1" aria-label="Ver proximas imagens">&gt;</button>
+                </div>
+              </div>
             </section>
             <section class="legacy-gallery" data-project-gallery="design" aria-label="Design grafico" hidden>
               <div class="legacy-gallery-head">
                 <h3>Design grafico</h3>
                 <p>Social media e pecas visuais para marcas e clientes.</p>
               </div>
-              <div class="project-grid"></div>
+              <div class="legacy-carousel">
+                <div class="legacy-rail" data-legacy-rail></div>
+                <div class="legacy-carousel-controls">
+                  <button class="arrow" type="button" data-legacy-scroll="-1" aria-label="Ver imagens anteriores">&lt;</button>
+                  <button class="arrow" type="button" data-legacy-scroll="1" aria-label="Ver proximas imagens">&gt;</button>
+                </div>
+              </div>
             </section>
             <section class="legacy-gallery" data-project-gallery="art" aria-label="Arte grafica" hidden>
               <div class="legacy-gallery-head">
                 <h3>Arte grafica</h3>
                 <p>Composicoes, campanhas, embalagens e estudos visuais.</p>
               </div>
-              <div class="project-grid"></div>
+              <div class="legacy-carousel">
+                <div class="legacy-rail" data-legacy-rail></div>
+                <div class="legacy-carousel-controls">
+                  <button class="arrow" type="button" data-legacy-scroll="-1" aria-label="Ver imagens anteriores">&lt;</button>
+                  <button class="arrow" type="button" data-legacy-scroll="1" aria-label="Ver proximas imagens">&gt;</button>
+                </div>
+              </div>
             </section>
           </div>
         </details>
@@ -2290,40 +2376,26 @@
       function renderProjectGallery(section) {
         const type = section.dataset.projectGallery;
         const projects = projectGalleries[type] || [];
-        const grid = section.querySelector(".project-grid");
-        grid.innerHTML = "";
+        const rail = section.querySelector("[data-legacy-rail]");
+        rail.innerHTML = "";
 
-        projects.forEach((project, projectIndex) => {
-          const details = document.createElement("details");
-          details.className = `project-card ${type === "design" ? "design-project" : ""}`;
+        let imageCount = 0;
+        projects.forEach((project) => {
+          projectItems(project).forEach((item) => {
+            const figure = createImageFigure(project, item, imageCount < 3);
+            figure.className = "legacy-slide";
+            rail.append(figure);
+            imageCount += 1;
+          });
+        });
 
-          const summary = document.createElement("summary");
-          summary.className = "project-summary";
-          const items = projectItems(project);
-          const coverItem = items[0];
-          summary.innerHTML = `
-            <div class="project-cover">
-              <img src="${imageSource(project, coverItem)}" alt="${imageAlt(project, coverItem)}" loading="${projectIndex === 0 ? "eager" : "lazy"}" decoding="async" draggable="false" />
-              <span class="project-count">${items.length} imagens</span>
-            </div>
-            <div class="project-body">
-              <p class="project-meta">${project.category}</p>
-              <div class="project-title-row">
-                <h3>${project.title}</h3>
-                <span class="project-expand" aria-hidden="true">+</span>
-              </div>
-              <p class="project-description">Clique para expandir e ver a sequência deste projeto.</p>
-            </div>
-          `;
-
-          const panel = document.createElement("div");
-          panel.className = "project-panel";
-          const mediaGrid = document.createElement("div");
-          mediaGrid.className = "media-grid";
-          items.forEach((item, imageIndex) => mediaGrid.append(createImageFigure(project, item, projectIndex === 0 && imageIndex < 2)));
-          panel.append(mediaGrid);
-          details.append(summary, panel);
-          grid.append(details);
+        section.querySelectorAll("[data-legacy-scroll]").forEach((button) => {
+          button.addEventListener("click", () => {
+            rail.scrollBy({
+              left: Number(button.dataset.legacyScroll) * Math.max(rail.clientWidth * 0.82, 280),
+              behavior: "smooth",
+            });
+          });
         });
       }
 
@@ -2576,6 +2648,7 @@
 
       document.querySelectorAll(".video-board").forEach((rail) => enableDragScroll(rail, "x"));
       document.querySelectorAll(".video-stack").forEach((rail) => enableDragScroll(rail, "y"));
+      document.querySelectorAll(".legacy-rail").forEach((rail) => enableDragScroll(rail, "x"));
     </script>
   </body>
 </html>
