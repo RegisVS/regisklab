@@ -617,6 +617,61 @@
         background: rgb(245 241 232 / 0.06);
       }
 
+      .legacy-work {
+        border-bottom: 0;
+      }
+
+      .legacy-accordion {
+        text-align: center;
+      }
+
+      .legacy-accordion .section-summary {
+        width: min(680px, 100%);
+        min-height: 0;
+        margin: 0 auto;
+        grid-template-columns: minmax(0, 1fr) auto;
+        text-align: left;
+      }
+
+      .legacy-accordion .section-summary h2 {
+        font-size: clamp(1.25rem, 2.2vw, 2rem);
+        line-height: 1;
+      }
+
+      .legacy-gallery {
+        display: grid;
+        gap: 18px;
+        margin-top: clamp(26px, 3vw, 42px);
+      }
+
+      .legacy-gallery + .legacy-gallery {
+        margin-top: clamp(42px, 5vw, 72px);
+      }
+
+      .legacy-gallery-head {
+        width: min(1280px, 100%);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 22px;
+        text-align: left;
+      }
+
+      .legacy-gallery-head h3 {
+        margin: 0;
+        font-size: clamp(1.35rem, 2.8vw, 2.7rem);
+        line-height: 0.96;
+      }
+
+      .legacy-gallery-head p {
+        max-width: 42ch;
+        margin: 0;
+        color: rgb(245 241 232 / 0.68);
+        font-size: 0.95rem;
+        line-height: 1.45;
+      }
+
       .lightbox {
         position: fixed;
         inset: 0;
@@ -1509,6 +1564,15 @@
           width: 100%;
         }
 
+        .legacy-accordion .section-summary,
+        .legacy-gallery-head {
+          width: 100%;
+        }
+
+        .legacy-gallery-head {
+          display: grid;
+        }
+
         .piece img {
           height: 56vh;
         }
@@ -1840,6 +1904,41 @@
         </div>
       </section>
 
+      <section class="strip legacy-work" id="outros-trabalhos">
+        <details class="section-accordion legacy-accordion">
+          <summary class="section-summary">
+            <div>
+              <p class="micro">Arquivo</p>
+              <h2>Outros trabalhos</h2>
+            </div>
+            <span class="section-expand" aria-hidden="true">+</span>
+          </summary>
+          <div class="section-panel">
+            <section class="legacy-gallery" data-project-gallery="photo" aria-label="Fotografia">
+              <div class="legacy-gallery-head">
+                <h3>Fotografia</h3>
+                <p>Selecao de imagens autorais e projetos fotograficos.</p>
+              </div>
+              <div class="project-grid"></div>
+            </section>
+            <section class="legacy-gallery" data-project-gallery="art" aria-label="Arte grafica">
+              <div class="legacy-gallery-head">
+                <h3>Arte grafica</h3>
+                <p>Composicoes, campanhas, embalagens e estudos visuais.</p>
+              </div>
+              <div class="project-grid"></div>
+            </section>
+            <section class="legacy-gallery" data-project-gallery="design" aria-label="Design grafico">
+              <div class="legacy-gallery-head">
+                <h3>Design grafico</h3>
+                <p>Social media e pecas visuais para marcas e clientes.</p>
+              </div>
+              <div class="project-grid"></div>
+            </section>
+          </div>
+        </details>
+      </section>
+
       <section class="contact" id="contact">
         <div class="contact-inner">
           <p class="micro">Contato</p>
@@ -1880,88 +1979,50 @@
           title: "Cinematic & VFX",
           slug: "cinematic-vfx",
           category: "Cinema / VFX / Campanhas",
-          note: "Cenas cinematográficas, VFX, ação e impacto visual para campanhas e filmes de marca.",
+          note: "Cenas cinematograficas, VFX, acao e impacto visual para campanhas e filmes de marca.",
           media: [
-            { title: "Dragon knight sequence", src: "assets/videos/ai/cinematic-vfx-dragon-knight.mp4", references: [
-              { title: "Character reference", src: "assets/process/ai/cinematic-dragon-source.jpg" },
-              { title: "Style frame", src: "assets/process/ai/cinematic-world-frame.jpg" },
-              { title: "Look board", src: "assets/process/ai/cinematic-style-board.jpg" },
-            ] },
-            { title: "Jet pursuit", src: "assets/videos/ai/cinematic-vfx-jet.mp4", references: [
-              { title: "Jet reference", src: "assets/process/ai/cinematic-jet-reference.jpg" },
-              { title: "Sea pursuit frame", src: "assets/process/ai/cinematic-jet-sea-reference.jpg" },
-            ] },
-            { title: "Battlefield soldiers", src: "assets/videos/ai/cinematic-vfx-soldier.mp4", references: [
-              { title: "Soldier action reference", src: "assets/process/ai/cinematic-soldier-reference.jpg" },
-              { title: "Rain sequence reference", src: "assets/process/ai/cinematic-soldier-weather-reference.jpg" },
-            ] },
-            { title: "Tank shot", src: "assets/videos/ai/cinematic-vfx-tank.mp4", references: [
-              { title: "Tank reference", src: "assets/process/ai/cinematic-tank-reference.jpg" },
-              { title: "Tank angle reference", src: "assets/process/ai/cinematic-tank-alt-reference.jpg" },
-            ] },
+            { title: "Dragon knight sequence", src: "assets/videos/ai/cinematic-vfx-dragon-knight.mp4" },
+            { title: "Jet pursuit", src: "assets/videos/ai/cinematic-vfx-jet.mp4" },
+            { title: "Battlefield soldiers", src: "assets/videos/ai/cinematic-vfx-soldier.mp4" },
           ],
         },
         {
           title: "Sports & Performance",
           slug: "sports-performance",
           category: "Esporte / Ritmo / Performance",
-          note: "Vídeos de performance com ritmo, velocidade e impacto para comerciais, reels e campanhas.",
+          note: "Videos de performance com ritmo, velocidade e impacto para comerciais, reels e campanhas.",
           media: [
-            { title: "Motorcycle tunnel", src: "assets/videos/ai/sports-performance-bike.mp4", references: [
-              { title: "Motion reference", src: "assets/process/ai/sports-bike-source.jpg" },
-            ] },
-            { title: "Night car shot", src: "assets/videos/ai/sports-performance-car.mp4", references: [
-              { title: "Car reference", src: "assets/process/ai/sports-car-reference.jpg" },
-            ] },
-            { title: "Dancer spotlight", src: "assets/videos/ai/sports-performance-dancer.mp4", references: [
-              { title: "Pose reference", src: "assets/process/ai/sports-dancer-source.jpg" },
-            ] },
-            { title: "Basketball dunk", src: "assets/videos/ai/sports-performance-dunk.mp4", references: [
-              { title: "Dunk reference", src: "assets/process/ai/sports-dunk-reference.jpg" },
-            ] },
+            { title: "Motorcycle tunnel", src: "assets/videos/ai/sports-performance-bike.mp4" },
+            { title: "Night car shot", src: "assets/videos/ai/sports-performance-car.mp4" },
+            { title: "Dancer spotlight", src: "assets/videos/ai/sports-performance-dancer.mp4" },
+            { title: "Basketball dunk", src: "assets/videos/ai/sports-performance-dunk.mp4" },
           ],
         },
         {
           title: "Nature & Wildlife",
           slug: "nature-wildlife",
           category: "Natureza / Animais / Atmosfera",
-          note: "Cenas de natureza, animais e atmosfera para storytelling, inserts cinematográficos e marcas.",
+          note: "Cenas de natureza, animais e atmosfera para storytelling, inserts cinematograficos e marcas.",
           media: [
             { title: "Eagle flight", src: "assets/videos/ai/nature-wildlife-eagle.mp4", references: [
               { title: "Scene reference", src: "assets/process/ai/nature-eagle-scene.jpg" },
               { title: "Character sheet", src: "assets/process/ai/nature-eagle-character-sheet.jpg" },
             ] },
-            { title: "Whale scene", src: "assets/videos/ai/nature-wildlife-whale.mp4" },
             { title: "Wolf pack", src: "assets/videos/ai/nature-wildlife-wolves.mp4", references: [
               { title: "Character sheet", src: "assets/process/ai/nature-wolf-character-sheet.jpg" },
             ] },
-            { title: "Jellyfish motion", src: "assets/videos/ai/nature-wildlife-jellyfish.mp4", references: [
-              { title: "Jellyfish reference", src: "assets/process/ai/nature-jellyfish-reference.jpg" },
-            ] },
+            { title: "Jellyfish motion", src: "assets/videos/ai/nature-wildlife-jellyfish.mp4" },
           ],
         },
         {
           title: "Stylized & Branded Films",
           slug: "stylized-branded-films",
           category: "Publicidade / Produto / Social",
-          note: "Filmes publicitários, produto, gastronomia, música e universos visuais para marcas.",
+          note: "Filmes publicitarios, produto, gastronomia, musica e universos visuais para marcas.",
           media: [
-            { title: "Chef / food film", src: "assets/videos/ai/stylized-branded-cooking.mp4", references: [
-              { title: "Food reference", src: "assets/process/ai/branded-cooking-source.jpg" },
-              { title: "Chef reference", src: "assets/process/ai/branded-chef-reference.jpg" },
-              { title: "Overhead prep frame", src: "assets/process/ai/branded-chef-overhead-reference.jpg" },
-            ] },
-            { title: "Glass forest", src: "assets/videos/ai/stylized-branded-glass-forest.mp4", references: [
-              { title: "Glass reference", src: "assets/process/ai/branded-glass-source.jpg" },
-              { title: "Art process board", src: "assets/process/ai/branded-art-process-board.jpg" },
-            ] },
-            { title: "Sea burst", src: "assets/videos/ai/stylized-branded-sea-burst.mp4", references: [
-              { title: "Sea burst reference", src: "assets/process/ai/stylized-sea-burst-reference.jpg" },
-            ] },
-            { title: "Vocal performance", src: "assets/videos/ai/stylized-branded-vocal.mp4", references: [
-              { title: "Character reference", src: "assets/process/ai/branded-character-source.jpg" },
-              { title: "Stage reference", src: "assets/process/ai/stylized-vocal-reference.jpg" },
-            ] },
+            { title: "Chef / food film", src: "assets/videos/ai/stylized-branded-cooking.mp4" },
+            { title: "Forest of lamps", src: "assets/videos/ai/stylized-branded-glass-forest.mp4" },
+            { title: "Sea burst", src: "assets/videos/ai/stylized-branded-sea-burst.mp4" },
           ],
         },
       ];
