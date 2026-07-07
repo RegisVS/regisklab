@@ -1350,6 +1350,10 @@
         padding: 0 clamp(10px, 1.6vw, 18px) clamp(12px, 1.8vw, 20px);
       }
 
+      .clip-video-item {
+        margin: 0;
+      }
+
       .clip-panel video {
         width: 100%;
         max-height: 72vh;
@@ -1358,8 +1362,16 @@
         background: #000;
       }
 
-      .clip-panel.is-single video {
+      .clip-panel.is-single .clip-video-item {
         grid-column: 1 / -1;
+      }
+
+      .clip-video-item figcaption {
+        margin-top: 8px;
+        color: rgb(245 241 232 / 0.72);
+        font-size: 0.78rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
       }
 
       .reference-grid {
@@ -1982,9 +1994,9 @@
       <nav class="nav" id="site-nav" aria-label="Navegacao">
         <a href="#showreel" data-showreel-open>Showreel</a>
         <a href="#cinematic-vfx">Cinematic & VFX</a>
-        <a href="#sports-performance">Sports</a>
+        <a href="#stylized-branded-films">Comercial</a>
         <a href="#nature-wildlife">3D/Animação</a>
-        <a href="#stylized-branded-films">Stylized</a>
+        <a href="#sports-performance">Sports</a>
         <a href="assets/curriculo-regis-2026.pdf" data-cv-open>Currículo</a>
         <a href="#contact">Contato</a>
       </nav>
@@ -2126,29 +2138,30 @@
     <script>
       const videoProjects = [
         {
-          title: "Cenas de guerra",
+          title: "Cinematic & VFX",
           slug: "cinematic-vfx",
-          category: "Acao / Guerra / VFX",
-          note: "Cenas de guerra, perseguicoes aereas e impacto visual para campanhas e filmes de marca.",
+          category: "Cinema / VFX / Campanhas",
+          note: "Cenas cinematograficas, VFX, acao e impacto visual para campanhas e filmes de marca.",
           media: [
             { title: "Dragon knight sequence", src: "assets/videos/ai/cinematic-vfx-dragon-knight.mp4" },
             { title: "Dragknight 1", src: "assets/videos/ai/cinematic-vfx-dragknight1.mp4" },
-            { title: "Jet pursuit", src: "assets/videos/ai/cinematic-vfx-jet.mp4" },
-            { title: "Jato 1", src: "assets/videos/ai/cinematic-vfx-jato1.mp4" },
-            { title: "Tankseed", src: "assets/videos/ai/cinematic-vfx-tank.mp4" },
-            { title: "Battlefield soldiers", src: "assets/videos/ai/cinematic-vfx-soldier.mp4" },
+            { title: "Cenas de guerra", src: "assets/videos/ai/cinematic-vfx-jato1.mp4", videos: [
+              { title: "Jato 1", src: "assets/videos/ai/cinematic-vfx-jato1.mp4" },
+              { title: "Jet pursuit", src: "assets/videos/ai/cinematic-vfx-jet.mp4" },
+              { title: "Tankseed", src: "assets/videos/ai/cinematic-vfx-tank.mp4" },
+              { title: "Battlefield soldiers", src: "assets/videos/ai/cinematic-vfx-soldier.mp4" },
+            ] },
           ],
         },
         {
-          title: "Sports & Performance",
-          slug: "sports-performance",
-          category: "Esporte / Ritmo / Performance",
-          note: "Videos de performance com ritmo, velocidade e impacto para comerciais, reels e campanhas.",
+          title: "Comercial",
+          slug: "stylized-branded-films",
+          category: "Publicidade / Produto / Social",
+          note: "Filmes publicitarios, produto, gastronomia, musica e universos visuais para marcas.",
           media: [
-            { title: "Motorcycle tunnel", src: "assets/videos/ai/sports-performance-bike.mp4" },
-            { title: "Night car shot", src: "assets/videos/ai/sports-performance-car.mp4" },
-            { title: "Dancer spotlight", src: "assets/videos/ai/sports-performance-dancer.mp4" },
-            { title: "Basketball dunk", src: "assets/videos/ai/sports-performance-dunk.mp4" },
+            { title: "Chef / food film", src: "assets/videos/ai/stylized-branded-cooking.mp4" },
+            { title: "Forest of lamps", src: "assets/videos/ai/stylized-branded-glass-forest.mp4" },
+            { title: "Sea burst", src: "assets/videos/ai/stylized-branded-sea-burst.mp4" },
           ],
         },
         {
@@ -2167,14 +2180,15 @@
           ],
         },
         {
-          title: "Stylized & Branded Films",
-          slug: "stylized-branded-films",
-          category: "Publicidade / Produto / Social",
-          note: "Filmes publicitarios, produto, gastronomia, musica e universos visuais para marcas.",
+          title: "Sports & Performance",
+          slug: "sports-performance",
+          category: "Esporte / Ritmo / Performance",
+          note: "Videos de performance com ritmo, velocidade e impacto para comerciais, reels e campanhas.",
           media: [
-            { title: "Chef / food film", src: "assets/videos/ai/stylized-branded-cooking.mp4" },
-            { title: "Forest of lamps", src: "assets/videos/ai/stylized-branded-glass-forest.mp4" },
-            { title: "Sea burst", src: "assets/videos/ai/stylized-branded-sea-burst.mp4" },
+            { title: "Motorcycle tunnel", src: "assets/videos/ai/sports-performance-bike.mp4" },
+            { title: "Night car shot", src: "assets/videos/ai/sports-performance-car.mp4" },
+            { title: "Dancer spotlight", src: "assets/videos/ai/sports-performance-dancer.mp4" },
+            { title: "Basketball dunk", src: "assets/videos/ai/sports-performance-dunk.mp4" },
           ],
         },
       ];
@@ -2494,9 +2508,17 @@
         videoProjects.forEach((project) => {
           const media = project.media || [];
           const clipMarkup = media.map((item) => {
-            const clipPoster = videoPoster(item.src);
+            const videos = item.videos?.length ? item.videos : [{ title: item.title, src: item.src }];
+            const clipPoster = videoPoster(videos[0].src);
             const referenceCount = item.references?.length || 0;
-            const fileCountLabel = referenceCount ? `${referenceCount + 1} arquivos` : "1 video";
+            const videoCountLabel = videos.length === 1 ? "1 video" : `${videos.length} videos`;
+            const fileCountLabel = referenceCount ? `${videos.length + referenceCount} arquivos` : videoCountLabel;
+            const videoMarkup = videos.map((video) => `
+              <figure class="clip-video-item">
+                <video controls playsinline preload="metadata" poster="${videoPoster(video.src)}" src="${video.src}"></video>
+                ${videos.length > 1 ? `<figcaption>${video.title}</figcaption>` : ""}
+              </figure>
+            `).join("");
             return `
               <details class="clip-project">
                 <summary class="clip-summary">
@@ -2510,7 +2532,7 @@
                   </div>
                 </summary>
                 <div class="clip-panel ${referenceCount ? "" : "is-single"}">
-                  <video controls playsinline preload="metadata" poster="${clipPoster}" src="${item.src}"></video>
+                  ${videoMarkup}
                   ${renderReferences(item)}
                 </div>
               </details>
