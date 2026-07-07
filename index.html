@@ -619,6 +619,8 @@
 
       .legacy-work {
         border-bottom: 0;
+        padding-top: clamp(16px, 2.4vw, 30px);
+        padding-bottom: clamp(28px, 4vw, 52px);
       }
 
       .legacy-accordion {
@@ -626,26 +628,77 @@
       }
 
       .legacy-accordion .section-summary {
-        width: min(680px, 100%);
+        width: auto;
         min-height: 0;
         margin: 0 auto;
-        grid-template-columns: minmax(0, 1fr) auto;
-        text-align: left;
+        display: inline-grid;
+        grid-template-columns: auto auto;
+        gap: 10px;
+        text-align: center;
+        padding: 10px 14px 10px 16px;
+        border-radius: 999px;
+        background: rgb(245 241 232 / 0.035);
+        box-shadow: none;
       }
 
       .legacy-accordion .section-summary h2 {
-        font-size: clamp(1.25rem, 2.2vw, 2rem);
+        font-size: 0.78rem;
+        font-weight: 850;
         line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .legacy-accordion .section-summary .micro {
+        display: none;
+      }
+
+      .legacy-accordion .section-expand {
+        width: 26px;
+        font-size: 1rem;
+      }
+
+      .legacy-accordion[open] .section-summary {
+        background: rgb(9 9 9 / 0.78);
+      }
+
+      .legacy-tabs {
+        width: min(1280px, 100%);
+        margin: clamp(24px, 3vw, 38px) auto 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .legacy-tab {
+        min-height: 42px;
+        border: 1px solid rgb(245 241 232 / 0.18);
+        border-radius: 999px;
+        padding: 10px 15px;
+        color: var(--white);
+        background: rgb(245 241 232 / 0.035);
+        cursor: pointer;
+        font-size: 0.78rem;
+        font-weight: 850;
+        text-transform: uppercase;
+        transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+      }
+
+      .legacy-tab:hover,
+      .legacy-tab[aria-selected="true"] {
+        border-color: rgb(242 107 47 / 0.72);
+        color: var(--accent);
+        background: rgb(242 107 47 / 0.1);
       }
 
       .legacy-gallery {
         display: grid;
         gap: 18px;
-        margin-top: clamp(26px, 3vw, 42px);
+        margin-top: clamp(22px, 3vw, 40px);
       }
 
-      .legacy-gallery + .legacy-gallery {
-        margin-top: clamp(42px, 5vw, 72px);
+      .legacy-gallery[hidden] {
+        display: none;
       }
 
       .legacy-gallery-head {
@@ -1914,6 +1967,11 @@
             <span class="section-expand" aria-hidden="true">+</span>
           </summary>
           <div class="section-panel">
+            <div class="legacy-tabs" role="tablist" aria-label="Classificacoes dos outros trabalhos">
+              <button class="legacy-tab" type="button" role="tab" aria-selected="true" data-legacy-tab="photo">Fotografia</button>
+              <button class="legacy-tab" type="button" role="tab" aria-selected="false" data-legacy-tab="design">Design grafico</button>
+              <button class="legacy-tab" type="button" role="tab" aria-selected="false" data-legacy-tab="art">Arte grafica</button>
+            </div>
             <section class="legacy-gallery" data-project-gallery="photo" aria-label="Fotografia">
               <div class="legacy-gallery-head">
                 <h3>Fotografia</h3>
@@ -1921,17 +1979,17 @@
               </div>
               <div class="project-grid"></div>
             </section>
-            <section class="legacy-gallery" data-project-gallery="art" aria-label="Arte grafica">
-              <div class="legacy-gallery-head">
-                <h3>Arte grafica</h3>
-                <p>Composicoes, campanhas, embalagens e estudos visuais.</p>
-              </div>
-              <div class="project-grid"></div>
-            </section>
-            <section class="legacy-gallery" data-project-gallery="design" aria-label="Design grafico">
+            <section class="legacy-gallery" data-project-gallery="design" aria-label="Design grafico" hidden>
               <div class="legacy-gallery-head">
                 <h3>Design grafico</h3>
                 <p>Social media e pecas visuais para marcas e clientes.</p>
+              </div>
+              <div class="project-grid"></div>
+            </section>
+            <section class="legacy-gallery" data-project-gallery="art" aria-label="Arte grafica" hidden>
+              <div class="legacy-gallery-head">
+                <h3>Arte grafica</h3>
+                <p>Composicoes, campanhas, embalagens e estudos visuais.</p>
               </div>
               <div class="project-grid"></div>
             </section>
@@ -2267,6 +2325,36 @@
         });
       }
 
+      function setupLegacyTabs() {
+        const legacyWork = document.querySelector(".legacy-work");
+        if (!legacyWork) return;
+
+        const tabs = Array.from(legacyWork.querySelectorAll("[data-legacy-tab]"));
+        const galleries = Array.from(legacyWork.querySelectorAll("[data-project-gallery]"));
+
+        const setActiveGallery = (activeType) => {
+          tabs.forEach((tab) => {
+            tab.setAttribute("aria-selected", String(tab.dataset.legacyTab === activeType));
+          });
+
+          galleries.forEach((gallery) => {
+            const isActive = gallery.dataset.projectGallery === activeType;
+            gallery.hidden = !isActive;
+            if (!isActive) {
+              gallery.querySelectorAll("details.project-card[open]").forEach((card) => {
+                card.open = false;
+              });
+            }
+          });
+        };
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => setActiveGallery(tab.dataset.legacyTab));
+        });
+
+        setActiveGallery(tabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.dataset.legacyTab || tabs[0]?.dataset.legacyTab);
+      }
+
       function videoPoster(src) {
         return src
           .replace(/^assets\/videos\//, "assets/video-posters/")
@@ -2446,6 +2534,7 @@
 
       renderVideoProjects();
       document.querySelectorAll("[data-project-gallery]").forEach(renderProjectGallery);
+      setupLegacyTabs();
 
 
 
