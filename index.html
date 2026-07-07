@@ -823,9 +823,63 @@
         background: rgb(0 0 0 / 0.92);
       }
 
+      .showreel-viewer {
+        background: rgb(0 0 0 / 0.96);
+      }
+
       .cv-viewer.is-open,
       .showreel-viewer.is-open {
         display: grid;
+      }
+
+      .showreel-choice-panel {
+        width: min(92vw, 620px);
+        display: grid;
+        gap: clamp(16px, 2vw, 24px);
+      }
+
+      .showreel-choice-panel h2 {
+        margin: 0;
+        color: var(--paper);
+        font-family: "Syne", sans-serif;
+        font-size: clamp(2rem, 7vw, 4.8rem);
+        line-height: 0.88;
+        text-transform: uppercase;
+      }
+
+      .showreel-choice-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .showreel-choice {
+        min-height: clamp(86px, 10vw, 128px);
+        border: 1px solid rgb(245 241 232 / 0.22);
+        border-radius: 10px;
+        background: rgb(245 241 232 / 0.06);
+        color: var(--paper);
+        font-family: "Syne", sans-serif;
+        font-size: clamp(1.2rem, 2.3vw, 2rem);
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .showreel-choice:hover,
+      .showreel-choice:focus-visible {
+        border-color: rgb(242 107 47 / 0.74);
+        background: rgb(242 107 47 / 0.14);
+        outline: none;
+      }
+
+      .showreel-viewer.is-playing .showreel-choice-panel {
+        display: none;
+      }
+
+      .showreel-viewer:not(.is-playing) .showreel-player {
+        display: none;
       }
 
       .showreel-player {
@@ -834,6 +888,14 @@
         border: 1px solid rgb(245 241 232 / 0.28);
         border-radius: 4px;
         background: #000;
+      }
+
+      .showreel-viewer.is-horizontal-mobile .showreel-player {
+        width: 100vw;
+        height: 100vh;
+        max-height: none;
+        border: 0;
+        border-radius: 0;
       }
 
       .cv-frame {
@@ -2126,6 +2188,13 @@
 
     <div class="showreel-viewer" aria-hidden="true">
       <button class="close" type="button" aria-label="Fechar showreel">x</button>
+      <div class="showreel-choice-panel" role="dialog" aria-label="Escolher formato do showreel">
+        <h2>Showreel</h2>
+        <div class="showreel-choice-actions">
+          <button class="showreel-choice" type="button" data-showreel-format="horizontal">Horizontal</button>
+          <button class="showreel-choice" type="button" data-showreel-format="vertical">Vertical</button>
+        </div>
+      </div>
       <video
         class="showreel-player"
         controls
@@ -2291,6 +2360,7 @@
       const cvFrame = cvViewer.querySelector(".cv-frame");
       const showreelViewer = document.querySelector(".showreel-viewer");
       const showreelPlayer = showreelViewer.querySelector(".showreel-player");
+      const showreelMobileQuery = window.matchMedia("(max-width: 760px)");
       const heroVideo = document.querySelector(".video-bg video");
       const heroSoundButton = document.querySelector(".hero-sound");
       const topbar = document.querySelector(".topbar");
@@ -2375,13 +2445,46 @@
       }
 
       function openShowreelViewer() {
-        const source = heroVideo?.currentSrc || heroVideo?.getAttribute("src") || heroVideo?.dataset.desktopSrc;
-        if (source) showreelPlayer.src = source;
+        showreelViewer.classList.remove("is-playing", "is-horizontal-mobile");
+        showreelPlayer.pause();
+        showreelPlayer.removeAttribute("src");
+        showreelPlayer.load();
         showreelViewer.classList.add("is-open");
+        showreelViewer.setAttribute("aria-hidden", "false");
+      }
+
+      async function requestHorizontalFullscreen() {
+        if (!showreelMobileQuery.matches) return;
+        showreelViewer.classList.add("is-horizontal-mobile");
+
+        try {
+          if (showreelPlayer.requestFullscreen) {
+            await showreelPlayer.requestFullscreen();
+          } else if (showreelViewer.requestFullscreen) {
+            await showreelViewer.requestFullscreen();
+          } else if (showreelPlayer.webkitEnterFullscreen) {
+            showreelPlayer.webkitEnterFullscreen();
+          }
+        } catch (error) {
+          // Fullscreen can be blocked by the browser; keep the modal player open.
+        }
+
+        try {
+          if (screen.orientation?.lock) await screen.orientation.lock("landscape");
+        } catch (error) {
+          // Orientation lock is not available in every mobile browser.
+        }
+      }
+
+      async function playShowreel(format) {
+        const source = format === "vertical" ? heroVideo?.dataset.mobileSrc : heroVideo?.dataset.desktopSrc;
+        if (source) showreelPlayer.src = source;
+        showreelViewer.classList.add("is-playing");
         showreelViewer.setAttribute("aria-hidden", "false");
         showreelPlayer.currentTime = 0;
         showreelPlayer.muted = false;
         showreelPlayer.volume = 0.85;
+        if (format === "horizontal") await requestHorizontalFullscreen();
         showreelPlayer.play().catch(() => {});
       }
 
@@ -2389,8 +2492,14 @@
         showreelPlayer.pause();
         showreelPlayer.removeAttribute("src");
         showreelPlayer.load();
-        showreelViewer.classList.remove("is-open");
+        showreelViewer.classList.remove("is-open", "is-playing", "is-horizontal-mobile");
         showreelViewer.setAttribute("aria-hidden", "true");
+        if (document.fullscreenElement) {
+          document.exitFullscreen().catch(() => {});
+        }
+        if (screen.orientation?.unlock) {
+          try { screen.orientation.unlock(); } catch (error) {}
+        }
       }
 
       function imageSource(project, item) {
@@ -2645,6 +2754,11 @@
       showreelViewer.querySelector(".close").addEventListener("click", closeShowreelViewer);
       showreelViewer.addEventListener("click", (event) => {
         if (event.target === showreelViewer) closeShowreelViewer();
+      });
+      showreelViewer.querySelectorAll("[data-showreel-format]").forEach((button) => {
+        button.addEventListener("click", () => {
+          playShowreel(button.dataset.showreelFormat);
+        });
       });
       document.querySelector("[data-showreel-open]")?.addEventListener("click", (event) => {
         event.preventDefault();
