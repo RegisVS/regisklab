@@ -956,21 +956,7 @@
         position: relative;
         scroll-margin-top: 112px;
         padding: clamp(54px, 7vw, 92px) clamp(18px, 5vw, 72px);
-        background:
-          linear-gradient(180deg, rgb(0 0 0 / 0.9), rgb(0 0 0 / 0.98)),
-          #000;
-        border-top: 1px solid rgb(200 162 75 / 0.35);
-        border-bottom: 1px solid rgb(200 162 75 / 0.35);
-      }
-
-      .clients-strip::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background:
-          linear-gradient(90deg, transparent, rgb(200 162 75 / 0.18), transparent),
-          radial-gradient(circle at 18% 0%, rgb(200 162 75 / 0.12), transparent 28%);
+        background: transparent;
       }
 
       .clients-inner {
@@ -982,24 +968,22 @@
       .clients-head {
         display: flex;
         align-items: end;
-        justify-content: space-between;
-        gap: 24px;
+        justify-content: center;
         margin-bottom: clamp(24px, 3vw, 42px);
       }
 
       .clients-head h2 {
-        max-width: 13ch;
         margin: 0;
-        font-size: clamp(2.2rem, 4.8vw, 4.8rem);
-        line-height: 0.95;
+        color: var(--paper);
+        font-size: clamp(2.4rem, 5vw, 5.4rem);
+        line-height: 1;
+        text-align: center;
       }
 
       .clients-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        border-top: 1px solid rgb(200 162 75 / 0.62);
-        border-left: 1px solid rgb(200 162 75 / 0.62);
-        background: #000;
+        gap: clamp(8px, 1.2vw, 16px);
       }
 
       .client-tile {
@@ -1010,11 +994,12 @@
         gap: 16px;
         align-items: center;
         padding: clamp(18px, 2.2vw, 28px);
-        border-right: 1px solid rgb(200 162 75 / 0.62);
-        border-bottom: 1px solid rgb(200 162 75 / 0.62);
+        border: 1px solid rgb(200 162 75 / 0.62);
+        border-radius: 12px;
         background:
           linear-gradient(180deg, rgb(245 241 232 / 0.035), transparent),
-          #020202;
+          rgb(2 2 2 / 0.68);
+        overflow: hidden;
       }
 
       .client-wide {
@@ -1026,14 +1011,6 @@
         height: clamp(74px, 8vw, 112px);
         display: grid;
         place-items: center;
-      }
-
-      .client-logo-frame.needs-plate {
-        width: 100%;
-        min-height: clamp(78px, 8vw, 114px);
-        padding: 16px 18px;
-        border: 1px solid rgb(200 162 75 / 0.24);
-        background: rgb(245 241 232 / 0.96);
       }
 
       .client-logo-frame img {
@@ -1056,6 +1033,15 @@
         filter: brightness(1.18);
       }
 
+      .dark-logo img {
+        filter: brightness(0) invert(1);
+      }
+
+      .compact-logo img {
+        max-width: 78%;
+        max-height: 78%;
+      }
+
       .client-tile span {
         display: block;
         color: rgb(245 241 232 / 0.78);
@@ -1065,6 +1051,38 @@
         line-height: 1.2;
         text-align: center;
         text-transform: uppercase;
+      }
+
+      .clients-proof {
+        margin: clamp(28px, 4vw, 48px) auto 0;
+        color: var(--paper);
+        font-weight: 950;
+        letter-spacing: 0.04em;
+        line-height: 0.94;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .clients-proof::before,
+      .clients-proof::after {
+        content: "";
+        display: inline-block;
+        width: clamp(34px, 8vw, 96px);
+        height: 1px;
+        margin: 0 14px 0.18em;
+        background: linear-gradient(90deg, transparent, rgb(200 162 75 / 0.85), transparent);
+      }
+
+      .clients-proof strong {
+        display: inline-block;
+        font-size: clamp(1.35rem, 3.6vw, 3.25rem);
+      }
+
+      .clients-proof span {
+        display: block;
+        margin-top: 4px;
+        font-size: clamp(0.82rem, 1.6vw, 1.32rem);
+        letter-spacing: 0.18em;
       }
 
       .section-summary.strip-head,
@@ -1703,7 +1721,7 @@
 
         .clients-head {
           align-items: start;
-          flex-direction: column;
+          justify-content: center;
         }
 
         .clients-grid {
@@ -2275,12 +2293,11 @@
       <section class="clients-strip" id="clientes" aria-labelledby="clientes-title">
         <div class="clients-inner">
           <div class="clients-head">
-            <p class="micro">Clientes / Projetos</p>
-            <h2 id="clientes-title">Marcas e artistas</h2>
+            <h2 id="clientes-title">Clientes</h2>
           </div>
           <div class="clients-grid" aria-label="Clientes e projetos atendidos">
             <article class="client-tile">
-              <div class="client-logo-frame needs-plate">
+              <div class="client-logo-frame dark-logo">
                 <img src="assets/clients/red-bull.svg" alt="Red Bull Brasilia" loading="lazy" decoding="async" />
               </div>
               <span>Red Bull Brasilia</span>
@@ -2304,7 +2321,7 @@
               <span>ONU Brasilia</span>
             </article>
             <article class="client-tile">
-              <div class="client-logo-frame">
+              <div class="client-logo-frame compact-logo">
                 <img src="assets/clients/a-republica.svg" alt="A Republica" loading="lazy" decoding="async" />
               </div>
               <span>A Republica</span>
@@ -2328,13 +2345,13 @@
               <span>Plantae</span>
             </article>
             <article class="client-tile">
-              <div class="client-logo-frame needs-plate">
+              <div class="client-logo-frame">
                 <img src="assets/clients/aje-df.png" alt="AJE-DF" loading="lazy" decoding="async" />
               </div>
               <span>AJE-DF</span>
             </article>
             <article class="client-tile">
-              <div class="client-logo-frame needs-plate">
+              <div class="client-logo-frame">
                 <img src="assets/clients/jusbrasil.svg" alt="Jusbrasil" loading="lazy" decoding="async" />
               </div>
               <span>JusBrasil</span>
@@ -2345,6 +2362,10 @@
               </div>
               <span>Jameson Black Barrel</span>
             </article>
+          </div>
+          <div class="clients-proof" aria-label="+ de 100 projetos entregues em Brasilia DF">
+            <strong>+ de 100 projetos</strong>
+            <span>entregues em Brasilia - DF</span>
           </div>
         </div>
       </section>
