@@ -629,20 +629,21 @@
 
       .legacy-accordion .section-summary {
         width: auto;
-        min-height: 0;
+        min-height: clamp(56px, 6vw, 72px);
         margin: 0 auto;
         display: inline-grid;
         grid-template-columns: auto auto;
-        gap: 10px;
+        align-items: center;
+        gap: clamp(12px, 1.5vw, 18px);
         text-align: center;
-        padding: 10px 14px 10px 16px;
+        padding: clamp(16px, 1.8vw, 20px) clamp(20px, 3vw, 34px);
         border-radius: 999px;
         background: rgb(245 241 232 / 0.035);
         box-shadow: none;
       }
 
       .legacy-accordion .section-summary h2 {
-        font-size: 0.78rem;
+        font-size: clamp(0.95rem, 1.25vw, 1.28rem);
         font-weight: 850;
         line-height: 1;
         text-transform: uppercase;
@@ -653,8 +654,8 @@
       }
 
       .legacy-accordion .section-expand {
-        width: 26px;
-        font-size: 1rem;
+        width: 30px;
+        font-size: 1.2rem;
       }
 
       .legacy-accordion[open] .section-summary {
@@ -664,22 +665,21 @@
       .legacy-tabs {
         width: min(1280px, 100%);
         margin: clamp(28px, 4vw, 52px) auto 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: clamp(12px, 1.8vw, 20px);
       }
 
       .legacy-tab {
-        min-width: clamp(168px, 17vw, 230px);
-        min-height: 58px;
+        min-width: 0;
+        min-height: clamp(76px, 8vw, 104px);
         border: 1px solid rgb(245 241 232 / 0.18);
-        border-radius: 999px;
-        padding: 16px 24px;
+        border-radius: 18px;
+        padding: clamp(18px, 2.4vw, 28px) clamp(14px, 2vw, 26px);
         color: var(--white);
         background: rgb(245 241 232 / 0.055);
         cursor: pointer;
-        font-size: clamp(0.82rem, 1.2vw, 1rem);
+        font-size: clamp(0.95rem, 1.55vw, 1.28rem);
         font-weight: 850;
         text-transform: uppercase;
         transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
@@ -705,10 +705,7 @@
       .legacy-gallery-head {
         width: min(1280px, 100%);
         margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 22px;
+        display: block;
         text-align: left;
       }
 
@@ -719,6 +716,7 @@
       }
 
       .legacy-gallery-head p {
+        display: none;
         max-width: 42ch;
         margin: 0;
         color: rgb(245 241 232 / 0.68);
@@ -1691,8 +1689,18 @@
           width: 100%;
         }
 
-        .legacy-gallery-head {
-          display: grid;
+        .legacy-accordion .section-summary {
+          width: min(100%, 320px);
+        }
+
+        .legacy-tabs {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .legacy-tab {
+          min-height: 68px;
+          border-radius: 16px;
         }
 
         .piece img {
@@ -2044,7 +2052,6 @@
             <section class="legacy-gallery" data-project-gallery="photo" aria-label="Fotografia" hidden>
               <div class="legacy-gallery-head">
                 <h3>Fotografia</h3>
-                <p>Selecao de imagens autorais e projetos fotograficos.</p>
               </div>
               <div class="legacy-carousel">
                 <div class="legacy-rail" data-legacy-rail></div>
@@ -2057,7 +2064,6 @@
             <section class="legacy-gallery" data-project-gallery="design" aria-label="Design grafico" hidden>
               <div class="legacy-gallery-head">
                 <h3>Design grafico</h3>
-                <p>Social media e pecas visuais para marcas e clientes.</p>
               </div>
               <div class="legacy-carousel">
                 <div class="legacy-rail" data-legacy-rail></div>
@@ -2070,7 +2076,6 @@
             <section class="legacy-gallery" data-project-gallery="art" aria-label="Arte grafica" hidden>
               <div class="legacy-gallery-head">
                 <h3>Arte grafica</h3>
-                <p>Composicoes, campanhas, embalagens e estudos visuais.</p>
               </div>
               <div class="legacy-carousel">
                 <div class="legacy-rail" data-legacy-rail></div>
@@ -2183,8 +2188,6 @@
         ],
         art: [
           { title: "Quadros", category: "Série visual / Formas e animais", indexes: [8, 10, 11, 15, 18, 19, 20, 26, 27], prefix: "assets/arte-grafica/art-", alt: "Quadro de arte gráfica de Régis Kraeski" },
-          { title: "Lendas", category: "Campanha automotiva", indexes: [1, 12, 22], prefix: "assets/arte-grafica/art-", alt: "Campanha Lendas de Régis Kraeski" },
-          { title: "Desgarrados", category: "Embalagem / Produto", indexes: [6], prefix: "assets/arte-grafica/art-", alt: "Projeto Desgarrados de Régis Kraeski" },
           { title: "Paisagens Fantásticas", category: "Composição digital / Concept art", indexes: [2, 3, 4, 5, 7, 9, 13, 14, 16, 21, 24, 25], prefix: "assets/arte-grafica/art-", alt: "Paisagem fantástica de Régis Kraeski" },
           { title: "Narrativas Surreais", category: "Composição digital / Atmosfera", indexes: [17, 23], prefix: "assets/arte-grafica/art-", alt: "Narrativa surreal de Régis Kraeski" },
         ],
@@ -2230,6 +2233,17 @@
               "assets/design/tupa/baufer/baufer-04.png",
             ],
             alt: "Design gráfico para Baurufer"
+          },
+          {
+            title: "Lendas e Desgarrados",
+            category: "Design gráfico / Campanha e produto",
+            files: [
+              "assets/design/arte-grafica/lendas-01.jpg",
+              "assets/design/arte-grafica/lendas-12.jpg",
+              "assets/design/arte-grafica/lendas-22.jpg",
+              "assets/design/arte-grafica/desgarrados-06.jpg",
+            ],
+            alt: "Design gráfico Lendas e Desgarrados"
           },
           {
             title: "Cegarra Imóveis",
