@@ -1119,16 +1119,35 @@
       .clients-proof::before,
       .clients-proof::after {
         content: "";
-        display: inline-block;
+      }
+
+      .clients-proof::before {
+        display: none;
+      }
+
+      .clients-proof::after {
+        display: block;
         width: clamp(34px, 8vw, 96px);
         height: 1px;
-        margin: 0 14px 0.18em;
+        margin: 10px auto 0;
         background: linear-gradient(90deg, transparent, rgb(200 162 75 / 0.85), transparent);
       }
 
       .clients-proof strong {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(10px, 2vw, 18px);
         font-size: clamp(1.35rem, 3.6vw, 3.25rem);
+      }
+
+      .clients-proof strong::before,
+      .clients-proof strong::after {
+        content: "";
+        display: block;
+        width: clamp(34px, 8vw, 96px);
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgb(200 162 75 / 0.85), transparent);
       }
 
       .clients-proof span {
