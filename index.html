@@ -663,22 +663,23 @@
 
       .legacy-tabs {
         width: min(1280px, 100%);
-        margin: clamp(24px, 3vw, 38px) auto 0;
+        margin: clamp(28px, 4vw, 52px) auto 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
+        gap: clamp(12px, 1.8vw, 20px);
       }
 
       .legacy-tab {
-        min-height: 42px;
+        min-width: clamp(168px, 17vw, 230px);
+        min-height: 58px;
         border: 1px solid rgb(245 241 232 / 0.18);
         border-radius: 999px;
-        padding: 10px 15px;
+        padding: 16px 24px;
         color: var(--white);
-        background: rgb(245 241 232 / 0.035);
+        background: rgb(245 241 232 / 0.055);
         cursor: pointer;
-        font-size: 0.78rem;
+        font-size: clamp(0.82rem, 1.2vw, 1rem);
         font-weight: 850;
         text-transform: uppercase;
         transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
@@ -2036,11 +2037,11 @@
           </summary>
           <div class="section-panel">
             <div class="legacy-tabs" role="tablist" aria-label="Classificacoes dos outros trabalhos">
-              <button class="legacy-tab" type="button" role="tab" aria-selected="true" data-legacy-tab="photo">Fotografia</button>
+              <button class="legacy-tab" type="button" role="tab" aria-selected="false" data-legacy-tab="photo">Fotografia</button>
               <button class="legacy-tab" type="button" role="tab" aria-selected="false" data-legacy-tab="design">Design grafico</button>
               <button class="legacy-tab" type="button" role="tab" aria-selected="false" data-legacy-tab="art">Arte grafica</button>
             </div>
-            <section class="legacy-gallery" data-project-gallery="photo" aria-label="Fotografia">
+            <section class="legacy-gallery" data-project-gallery="photo" aria-label="Fotografia" hidden>
               <div class="legacy-gallery-head">
                 <h3>Fotografia</h3>
                 <p>Selecao de imagens autorais e projetos fotograficos.</p>
@@ -2403,12 +2404,13 @@
         const legacyWork = document.querySelector(".legacy-work");
         if (!legacyWork) return;
 
+        const accordion = legacyWork.querySelector(".legacy-accordion");
         const tabs = Array.from(legacyWork.querySelectorAll("[data-legacy-tab]"));
         const galleries = Array.from(legacyWork.querySelectorAll("[data-project-gallery]"));
 
         const setActiveGallery = (activeType) => {
           tabs.forEach((tab) => {
-            tab.setAttribute("aria-selected", String(tab.dataset.legacyTab === activeType));
+            tab.setAttribute("aria-selected", String(Boolean(activeType) && tab.dataset.legacyTab === activeType));
           });
 
           galleries.forEach((gallery) => {
@@ -2426,7 +2428,13 @@
           tab.addEventListener("click", () => setActiveGallery(tab.dataset.legacyTab));
         });
 
-        setActiveGallery(tabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.dataset.legacyTab || tabs[0]?.dataset.legacyTab);
+        accordion?.addEventListener("toggle", () => {
+          if (accordion.open) {
+            setActiveGallery(null);
+          }
+        });
+
+        setActiveGallery(null);
       }
 
       function videoPoster(src) {
