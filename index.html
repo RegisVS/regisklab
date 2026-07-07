@@ -981,12 +981,17 @@
       }
 
       .clients-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: clamp(8px, 1.2vw, 16px);
+        --client-gap: clamp(8px, 1.2vw, 16px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--client-gap);
       }
 
       .client-tile {
+        position: relative;
+        box-sizing: border-box;
+        flex: 0 1 calc((100% - (var(--client-gap) * 3)) / 4);
         min-width: 0;
         min-height: clamp(154px, 16vw, 218px);
         display: grid;
@@ -1002,27 +1007,55 @@
         overflow: hidden;
       }
 
+      .client-tile::before,
+      .client-tile::after {
+        content: "";
+        position: absolute;
+        width: 34px;
+        height: 34px;
+        pointer-events: none;
+      }
+
+      .client-tile::before {
+        top: 10px;
+        left: 10px;
+        border-top: 1px solid rgb(200 162 75 / 0.78);
+        border-left: 1px solid rgb(200 162 75 / 0.78);
+      }
+
+      .client-tile::after {
+        right: 10px;
+        bottom: 10px;
+        border-right: 1px solid rgb(200 162 75 / 0.78);
+        border-bottom: 1px solid rgb(200 162 75 / 0.78);
+      }
+
       .client-wide {
-        grid-column: span 2;
+        flex-basis: calc(((100% - (var(--client-gap) * 3)) / 4) * 2 + var(--client-gap));
       }
 
       .client-logo-frame {
         width: 100%;
-        height: clamp(74px, 8vw, 112px);
+        height: clamp(86px, 9.2vw, 132px);
         display: grid;
         place-items: center;
       }
 
       .client-logo-frame img {
         display: block;
-        max-width: 100%;
-        max-height: 100%;
+        max-width: 112%;
+        max-height: 112%;
         object-fit: contain;
       }
 
+      .redbull-logo img {
+        max-width: 94%;
+        max-height: 94%;
+      }
+
       .poster-logo img {
-        width: clamp(76px, 7.4vw, 106px);
-        height: clamp(76px, 7.4vw, 106px);
+        width: clamp(86px, 8.2vw, 122px);
+        height: clamp(86px, 8.2vw, 122px);
         border-radius: 50%;
         object-fit: cover;
       }
@@ -1038,8 +1071,12 @@
       }
 
       .compact-logo img {
-        max-width: 78%;
-        max-height: 78%;
+        max-width: 96%;
+        max-height: 96%;
+      }
+
+      .wide-logo img {
+        max-width: 120%;
       }
 
       .client-tile span {
@@ -1725,7 +1762,15 @@
         }
 
         .clients-grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
+          --client-gap: clamp(8px, 1.2vw, 16px);
+        }
+
+        .client-tile {
+          flex-basis: calc((100% - (var(--client-gap) * 2)) / 3);
+        }
+
+        .client-wide {
+          flex-basis: calc(((100% - (var(--client-gap) * 2)) / 3) * 2 + var(--client-gap));
         }
 
         .process-grid {
@@ -1759,14 +1804,15 @@
         }
 
         .clients-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+          --client-gap: 10px;
         }
 
         .client-wide {
-          grid-column: auto;
+          flex-basis: calc((100% - var(--client-gap)) / 2);
         }
 
         .client-tile {
+          flex-basis: calc((100% - var(--client-gap)) / 2);
           min-height: 146px;
           padding: 16px;
         }
@@ -2297,7 +2343,7 @@
           </div>
           <div class="clients-grid" aria-label="Clientes e projetos atendidos">
             <article class="client-tile">
-              <div class="client-logo-frame dark-logo">
+              <div class="client-logo-frame redbull-logo">
                 <img src="assets/clients/red-bull.svg" alt="Red Bull Brasilia" loading="lazy" decoding="async" />
               </div>
               <span>Red Bull Brasilia</span>
@@ -2340,9 +2386,9 @@
             </article>
             <article class="client-tile">
               <div class="client-logo-frame">
-                <img src="assets/clients/plantae.png" alt="Plantae" loading="lazy" decoding="async" />
+                <img src="assets/clients/plantae-band.svg" alt="O PlantaE" loading="lazy" decoding="async" />
               </div>
-              <span>Plantae</span>
+              <span>O PlantaE</span>
             </article>
             <article class="client-tile">
               <div class="client-logo-frame">
@@ -2361,6 +2407,24 @@
                 <img src="assets/clients/jameson-black-barrel.svg" alt="Jameson Black Barrel" loading="lazy" decoding="async" />
               </div>
               <span>Jameson Black Barrel</span>
+            </article>
+            <article class="client-tile">
+              <div class="client-logo-frame">
+                <img src="assets/clients/brasilia-office.png" alt="Brasília Office" loading="lazy" decoding="async" />
+              </div>
+              <span>Brasília Office</span>
+            </article>
+            <article class="client-tile">
+              <div class="client-logo-frame compact-logo">
+                <img src="assets/clients/vital-implantes.webp" alt="Vital Implantes" loading="lazy" decoding="async" />
+              </div>
+              <span>Vital Implantes</span>
+            </article>
+            <article class="client-tile">
+              <div class="client-logo-frame wide-logo">
+                <img src="assets/clients/next-level-sports.png" alt="Next Level Sports" loading="lazy" decoding="async" />
+              </div>
+              <span>Next Level Sports</span>
             </article>
           </div>
           <div class="clients-proof" aria-label="+ de 100 projetos entregues em Brasilia DF">
