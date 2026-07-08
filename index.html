@@ -2434,20 +2434,29 @@
 
         .project-body,
         .project-card[open] .project-body {
-          padding: 12px;
+          gap: 5px;
+          padding: 10px;
         }
 
         .project-card[open] .project-title-row h3,
+        .video-project > .project-summary h3,
         .project-title-row h3 {
-          font-size: 1rem;
+          font-size: 0.9rem;
+          line-height: 1.08;
         }
 
         .project-meta {
-          font-size: 0.58rem;
+          font-size: 0.54rem;
+          letter-spacing: 0.08em;
+        }
+
+        .project-title-row {
+          gap: 8px;
         }
 
         .project-expand {
-          width: 30px;
+          width: 26px;
+          font-size: 0.96rem;
         }
 
         .project-card[open] .project-description {
@@ -2482,11 +2491,36 @@
         }
 
         .clip-copy h4 {
-          font-size: 0.96rem;
+          font-size: 0.88rem;
+          line-height: 1.08;
         }
 
         .clip-meta {
-          font-size: 0.56rem;
+          font-size: 0.52rem;
+          letter-spacing: 0.08em;
+        }
+
+        .clip-expand {
+          right: 8px;
+          bottom: 8px;
+          width: 28px;
+          font-size: 1rem;
+        }
+
+        .section-summary {
+          min-height: 82px;
+          gap: 14px;
+          padding: 20px 18px;
+        }
+
+        .section-summary h2 {
+          font-size: clamp(1.22rem, 6.7vw, 1.72rem);
+          line-height: 1.02;
+        }
+
+        .section-expand {
+          width: 42px;
+          font-size: 1.35rem;
         }
 
         .clip-panel {
@@ -2495,6 +2529,70 @@
 
         .reference-grid {
           grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .project-summary,
+        .project-card[open] .project-summary {
+          grid-template-columns: 76px minmax(0, 1fr);
+          min-height: 76px;
+        }
+
+        .project-cover,
+        .video-project .project-cover,
+        .project-card[open] .project-cover,
+        .project-card[open].video-project .project-cover {
+          width: 76px;
+          min-height: 76px;
+        }
+
+        .project-body,
+        .project-card[open] .project-body {
+          padding: 9px;
+        }
+
+        .project-card[open] .project-title-row h3,
+        .video-project > .project-summary h3,
+        .project-title-row h3 {
+          font-size: 0.82rem;
+        }
+
+        .project-expand {
+          width: 24px;
+          font-size: 0.9rem;
+        }
+
+        .section-summary {
+          min-height: 76px;
+          gap: 10px;
+          padding: 18px 16px;
+        }
+
+        .section-summary h2 {
+          font-size: clamp(1.08rem, 6.2vw, 1.42rem);
+        }
+
+        .section-expand {
+          width: 36px;
+          font-size: 1.18rem;
+        }
+
+        .clip-summary {
+          grid-template-columns: 82px minmax(0, 1fr);
+          min-height: 78px;
+        }
+
+        .clip-thumb {
+          min-height: 78px;
+        }
+
+        .clip-copy {
+          padding: 9px 10px;
+        }
+
+        .clip-copy h4 {
+          font-size: 0.82rem;
         }
       }
     </style>
