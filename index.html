@@ -2743,7 +2743,7 @@
             { title: "Red Bolt", src: "assets/videos/ai/red-bolt-commercial.mp4", references: [
               { title: "Character sheet do produto", src: "assets/process/ai/red-bolt-product-character-sheet.png" },
             ] },
-            { title: "Jameson", src: "assets/videos/jameson-planned-heat.mp4", tag: "Live Action + AI/VFX" },
+            { title: "Jameson", src: "assets/videos/jameson-planned-heat.mp4", poster: "assets/video-posters/jameson-black-barrel-poster.jpg", tag: "Live Action + AI/VFX" },
             { title: "Cuisine", src: "assets/videos/ai/cuisine-cook1.mp4", videos: [
               { title: "Cook 1", src: "assets/videos/ai/cuisine-cook1.mp4" },
               { title: "Preparo na cozinha", src: "assets/videos/ai/cuisine-cooks2.mp4" },
@@ -3190,13 +3190,13 @@
           const media = project.media || [];
           const clipMarkup = media.map((item) => {
             const videos = item.videos?.length ? item.videos : [{ title: item.title, src: item.src }];
-            const clipPoster = videoPoster(videos[0].src);
+            const clipPoster = item.poster || videoPoster(videos[0].src);
             const referenceCount = item.references?.length || 0;
             const videoCountLabel = videos.length === 1 ? "1 video" : `${videos.length} videos`;
             const fileCountLabel = referenceCount ? `${videos.length + referenceCount} arquivos` : videoCountLabel;
             const videoMarkup = videos.map((video) => `
               <figure class="clip-video-item">
-                <video controls playsinline preload="metadata" poster="${videoPoster(video.src)}" src="${video.src}"></video>
+                <video controls playsinline preload="metadata" poster="${video.poster || item.poster || videoPoster(video.src)}" src="${video.src}"></video>
                 ${videos.length > 1 ? `<figcaption>${video.title}</figcaption>` : ""}
               </figure>
             `).join("");
