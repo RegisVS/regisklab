@@ -1016,6 +1016,88 @@
         background: transparent;
       }
 
+      .about-strip {
+        position: relative;
+        scroll-margin-top: 112px;
+        padding: clamp(46px, 6vw, 78px) clamp(18px, 5vw, 72px) clamp(20px, 3vw, 34px);
+      }
+
+      .about-inner {
+        width: min(1280px, 100%);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(220px, 0.78fr) minmax(0, 1.22fr);
+        gap: clamp(24px, 4vw, 58px);
+        align-items: start;
+      }
+
+      .about-title {
+        display: grid;
+        gap: 14px;
+      }
+
+      .about-title .micro {
+        margin: 0;
+      }
+
+      .about-title h2 {
+        margin: 0;
+        color: var(--paper);
+        font-size: clamp(2rem, 4.2vw, 4.4rem);
+        line-height: 0.92;
+      }
+
+      .about-card {
+        position: relative;
+        padding: clamp(24px, 3.4vw, 44px);
+        border: 1px solid rgb(245 241 232 / 0.15);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgb(245 241 232 / 0.085), rgb(245 241 232 / 0.025)),
+          rgb(5 5 5 / 0.64);
+        box-shadow: 0 24px 90px rgb(0 0 0 / 0.24);
+      }
+
+      .about-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: clamp(24px, 3vw, 42px);
+        width: clamp(62px, 8vw, 112px);
+        height: 2px;
+        background: var(--accent);
+      }
+
+      .about-card p {
+        margin: 0;
+        color: rgb(245 241 232 / 0.78);
+        font-size: clamp(1rem, 1.55vw, 1.2rem);
+        line-height: 1.55;
+      }
+
+      .about-card p + p {
+        margin-top: 1em;
+      }
+
+      .about-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: clamp(20px, 2.8vw, 32px);
+      }
+
+      .about-tags span {
+        border: 1px solid rgb(245 241 232 / 0.18);
+        border-radius: 999px;
+        padding: 8px 11px;
+        color: rgb(245 241 232 / 0.72);
+        font-size: 0.72rem;
+        font-weight: 850;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: rgb(245 241 232 / 0.04);
+      }
+
       .clients-inner {
         position: relative;
         width: min(1280px, 100%);
@@ -1873,6 +1955,14 @@
           padding-inline: 18px;
         }
 
+        .about-strip {
+          padding-inline: 18px;
+        }
+
+        .about-inner {
+          grid-template-columns: 1fr;
+        }
+
         .clients-grid {
           --client-gap: 10px;
         }
@@ -2360,6 +2450,7 @@
         <a href="#cinematic-vfx">Cinematic & VFX</a>
         <a href="#nature-wildlife">3D/Animação</a>
         <a href="#sports-performance">Sports</a>
+        <a href="#sobre">Sobre</a>
         <a href="#clientes">Clientes</a>
         <a href="assets/curriculo-regis-2026.pdf" data-cv-open>Currículo</a>
         <a href="#contact">Contato</a>
@@ -2407,6 +2498,26 @@
       <section class="strip videos" id="videos">
         <div class="section-panel">
           <div class="project-grid" data-video-projects aria-label="Categorias de videos comerciais"></div>
+        </div>
+      </section>
+
+      <section class="about-strip" id="sobre" aria-labelledby="sobre-title">
+        <div class="about-inner">
+          <div class="about-title">
+            <p class="micro">Sobre</p>
+            <h2 id="sobre-title">Criativo audiovisual para marcas e campanhas</h2>
+          </div>
+          <div class="about-card">
+            <p>Sou Régis Kraeski, criativo audiovisual com foco em vídeos comerciais, institucionais e conteúdo para marcas. Trabalho unindo filmagem, direção, edição, VFX, design e ferramentas de IA para transformar campanhas, produtos e ideias em peças visuais com impacto.</p>
+            <p>Desenvolvo projetos para marcas, artistas, instituições e negócios de diferentes segmentos, com entregas pensadas para redes, apresentações, lançamentos e campanhas.</p>
+            <div class="about-tags" aria-label="Especialidades">
+              <span>Filmagem</span>
+              <span>VFX</span>
+              <span>Edição</span>
+              <span>Design</span>
+              <span>IA criativa</span>
+            </div>
+          </div>
         </div>
       </section>
 
