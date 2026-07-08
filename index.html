@@ -1019,21 +1019,21 @@
       .about-strip {
         position: relative;
         scroll-margin-top: 112px;
-        padding: clamp(46px, 6vw, 78px) clamp(18px, 5vw, 72px) clamp(20px, 3vw, 34px);
+        padding: clamp(46px, 6vw, 76px) clamp(18px, 5vw, 72px) clamp(24px, 3vw, 40px);
       }
 
       .about-inner {
-        width: min(1280px, 100%);
+        width: min(1120px, 100%);
         margin: 0 auto;
         display: grid;
-        grid-template-columns: minmax(220px, 0.78fr) minmax(0, 1.22fr);
-        gap: clamp(24px, 4vw, 58px);
-        align-items: start;
+        gap: clamp(20px, 3vw, 34px);
+        justify-items: center;
       }
 
       .about-title {
         display: grid;
-        gap: 14px;
+        justify-items: center;
+        text-align: center;
       }
 
       .about-title .micro {
@@ -1043,13 +1043,17 @@
       .about-title h2 {
         margin: 0;
         color: var(--paper);
-        font-size: clamp(2rem, 4.2vw, 4.4rem);
-        line-height: 0.92;
+        font-size: clamp(2.25rem, 5.5vw, 5.2rem);
+        line-height: 0.9;
       }
 
       .about-card {
         position: relative;
-        padding: clamp(24px, 3.4vw, 44px);
+        width: min(980px, 100%);
+        min-height: clamp(210px, 23vw, 285px);
+        display: grid;
+        align-content: center;
+        padding: clamp(24px, 3vw, 40px) clamp(22px, 5vw, 70px);
         border: 1px solid rgb(245 241 232 / 0.15);
         border-radius: 8px;
         background:
@@ -1071,7 +1075,7 @@
       .about-card p {
         margin: 0;
         color: rgb(245 241 232 / 0.78);
-        font-size: clamp(1rem, 1.55vw, 1.2rem);
+        font-size: clamp(0.98rem, 1.35vw, 1.14rem);
         line-height: 1.55;
       }
 
@@ -2504,8 +2508,7 @@
       <section class="about-strip" id="sobre" aria-labelledby="sobre-title">
         <div class="about-inner">
           <div class="about-title">
-            <p class="micro">Sobre</p>
-            <h2 id="sobre-title">Criativo audiovisual para marcas e campanhas</h2>
+            <h2 id="sobre-title">Sobre</h2>
           </div>
           <div class="about-card">
             <p>Sou Régis Kraeski, criativo audiovisual com foco em vídeos comerciais, institucionais e conteúdo para marcas. Trabalho unindo filmagem, direção, edição, VFX, design e ferramentas de IA para transformar campanhas, produtos e ideias em peças visuais com impacto.</p>
@@ -3258,7 +3261,8 @@
           if (!isDragging) return;
           const deltaX = event.clientX - startX;
           const deltaY = event.clientY - startY;
-          if (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4) didDrag = true;
+          if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) didDrag = true;
+          if (!didDrag) return;
           event.preventDefault();
           if (axis === "y") {
             rail.scrollTop = scrollTop - deltaY;
