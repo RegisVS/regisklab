@@ -3263,12 +3263,14 @@
         let startY = 0;
         let scrollLeft = 0;
         let scrollTop = 0;
+        let pressedImage = null;
 
         rail.addEventListener("pointerdown", (event) => {
           if (event.target.closest("button, a")) return;
 
           isDragging = true;
           didDrag = false;
+          pressedImage = event.target.closest("img");
           startX = event.clientX;
           startY = event.clientY;
           scrollLeft = rail.scrollLeft;
@@ -3297,6 +3299,15 @@
           rail.classList.remove("is-dragging");
           if (rail.hasPointerCapture(event.pointerId)) {
             rail.releasePointerCapture(event.pointerId);
+          }
+          if (!didDrag && pressedImage) {
+            openLightbox(pressedImage);
+          }
+          pressedImage = null;
+          if (didDrag) {
+            window.setTimeout(() => {
+              didDrag = false;
+            }, 0);
           }
         };
 
