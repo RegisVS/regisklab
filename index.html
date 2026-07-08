@@ -1007,29 +1007,6 @@
         overflow: hidden;
       }
 
-      .client-tile::before,
-      .client-tile::after {
-        content: "";
-        position: absolute;
-        width: 34px;
-        height: 34px;
-        pointer-events: none;
-      }
-
-      .client-tile::before {
-        top: 10px;
-        left: 10px;
-        border-top: 1px solid rgb(200 162 75 / 0.78);
-        border-left: 1px solid rgb(200 162 75 / 0.78);
-      }
-
-      .client-tile::after {
-        right: 10px;
-        bottom: 10px;
-        border-right: 1px solid rgb(200 162 75 / 0.78);
-        border-bottom: 1px solid rgb(200 162 75 / 0.78);
-      }
-
       .client-wide {
         flex-basis: calc(((100% - (var(--client-gap) * 3)) / 4) * 2 + var(--client-gap));
       }
