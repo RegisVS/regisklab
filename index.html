@@ -906,20 +906,21 @@
       }
 
       .showreel-end-panel h2 {
+        max-width: 11ch;
         margin: 0;
         color: var(--paper);
         font-family: "Syne", sans-serif;
-        font-size: clamp(1.25rem, 3.2vw, 2rem);
-        line-height: 1.05;
+        font-size: clamp(1.85rem, 7.6vw, 4rem);
+        line-height: 0.94;
         text-transform: uppercase;
       }
 
       .showreel-end-panel p {
-        max-width: 44ch;
+        max-width: 42ch;
         margin: 0;
         color: var(--muted);
-        font-size: clamp(0.88rem, 1.1vw, 1rem);
-        line-height: 1.45;
+        font-size: clamp(0.82rem, 1.4vw, 1.05rem);
+        line-height: 1.35;
       }
 
       .showreel-end-actions {
@@ -2474,7 +2475,6 @@
         <a href="#sports-performance">Sports</a>
         <a href="#sobre">Sobre</a>
         <a href="#clientes">Clientes</a>
-        <a href="assets/curriculo-regis-2026.pdf" data-cv-open>Currículo</a>
         <a href="#contact">Contato</a>
       </nav>
     </header>
@@ -2723,7 +2723,8 @@
         poster="assets/video-posters/ai/hero-ai-showcase.jpg"
       ></video>
       <div class="showreel-end-panel" role="dialog" aria-label="Fim do showreel">
-        <h2>Tem uma ideia, produto ou campanha que precise de um pouco de mágica?</h2>
+        <h2>Vamos criar seu próximo vídeo?</h2>
+        <p>Tem uma ideia, produto ou campanha que precise de um pouco de mágica?</p>
         <div class="showreel-end-actions">
           <a class="button" href="https://wa.me/5561981638256?text=Oi%2C%20Regis.%20Quero%20solicitar%20um%20or%C3%A7amento%20para%20um%20projeto%20de%20v%C3%ADdeo." rel="noreferrer">Solicitar orçamento</a>
           <button class="button" type="button" data-showreel-explore>Explore mais</button>
@@ -3349,7 +3350,7 @@
         closeMenu();
       });
 
-      document.querySelector("[data-cv-open]").addEventListener("click", (event) => {
+      document.querySelector("[data-cv-open]")?.addEventListener("click", (event) => {
         event.preventDefault();
         openCvViewer();
       });
