@@ -1699,6 +1699,24 @@
         line-height: 1.04;
       }
 
+      .clip-tag {
+        display: none;
+        width: fit-content;
+        border: 1px solid rgb(242 107 47 / 0.5);
+        border-radius: 999px;
+        padding: 7px 11px;
+        color: var(--white);
+        background: rgb(242 107 47 / 0.12);
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .clip-project[open] .clip-tag {
+        display: inline-flex;
+      }
+
       .clip-meta {
         margin: 0;
         color: rgb(245 241 232 / 0.62);
@@ -2722,7 +2740,7 @@
           category: "Publicidade / Produto / Social",
           note: "Filmes publicitarios, produto, gastronomia, musica e universos visuais para marcas.",
           media: [
-            { title: "Jameson", src: "assets/videos/jameson-planned-heat.mp4" },
+            { title: "Jameson", src: "assets/videos/jameson-planned-heat.mp4", tag: "Live Action + AI/VFX" },
             { title: "Red Bolt", src: "assets/videos/ai/red-bolt-commercial.mp4", references: [
               { title: "Character sheet do produto", src: "assets/process/ai/red-bolt-product-character-sheet.png" },
             ] },
@@ -3192,6 +3210,7 @@
                   <div class="clip-copy">
                     <p class="clip-meta">${fileCountLabel}</p>
                     <h4>${item.title}</h4>
+                    ${item.tag ? `<span class="clip-tag">${item.tag}</span>` : ""}
                   </div>
                 </summary>
                 <div class="clip-panel ${referenceCount ? "" : "is-single"}">
