@@ -3432,20 +3432,17 @@
       function enableDragScroll(rail, axis = "x") {
         let isDragging = false;
         let didDrag = false;
-        let maxPointerDistance = 0;
+        let suppressClickUntil = 0;
         let startX = 0;
         let startY = 0;
         let scrollLeft = 0;
         let scrollTop = 0;
-        let pressedImage = null;
 
         rail.addEventListener("pointerdown", (event) => {
           if (event.target.closest("button, a")) return;
 
           isDragging = true;
           didDrag = false;
-          maxPointerDistance = 0;
-          pressedImage = event.target.closest("img");
           startX = event.clientX;
           startY = event.clientY;
           scrollLeft = rail.scrollLeft;
@@ -3458,7 +3455,6 @@
           if (!isDragging) return;
           const deltaX = event.clientX - startX;
           const deltaY = event.clientY - startY;
-          maxPointerDistance = Math.max(maxPointerDistance, Math.hypot(deltaX, deltaY));
           if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) didDrag = true;
           if (!didDrag) return;
           event.preventDefault();
@@ -3479,11 +3475,9 @@
           const didScroll =
             Math.abs(rail.scrollLeft - scrollLeft) > 2 ||
             Math.abs(rail.scrollTop - scrollTop) > 2;
-          const isCleanTap = !didDrag && !didScroll && maxPointerDistance <= 6;
-          if (isCleanTap && pressedImage) {
-            openLightbox(pressedImage);
+          if (didDrag || didScroll) {
+            suppressClickUntil = Date.now() + 300;
           }
-          pressedImage = null;
           if (didDrag) {
             window.setTimeout(() => {
               didDrag = false;
@@ -3494,11 +3488,16 @@
         rail.addEventListener("pointerup", stopDragging);
         rail.addEventListener("pointercancel", stopDragging);
         rail.addEventListener("click", (event) => {
-          if (!didDrag) return;
-          event.preventDefault();
-          event.stopPropagation();
-          didDrag = false;
-        }, true);
+          const image = event.target.closest("img");
+          if (!image) return;
+          if (didDrag || Date.now() < suppressClickUntil) {
+            event.preventDefault();
+            event.stopPropagation();
+            didDrag = false;
+            return;
+          }
+          openLightbox(image);
+        });
         rail.addEventListener("mouseleave", () => {
           isDragging = false;
           rail.classList.remove("is-dragging");
