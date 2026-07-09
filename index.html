@@ -812,6 +812,7 @@
         max-width: 96vw;
         max-height: 90vh;
         object-fit: contain;
+        cursor: zoom-out;
       }
 
       .cv-viewer,
@@ -3431,6 +3432,7 @@
       function enableDragScroll(rail, axis = "x") {
         let isDragging = false;
         let didDrag = false;
+        let maxPointerDistance = 0;
         let startX = 0;
         let startY = 0;
         let scrollLeft = 0;
@@ -3442,6 +3444,7 @@
 
           isDragging = true;
           didDrag = false;
+          maxPointerDistance = 0;
           pressedImage = event.target.closest("img");
           startX = event.clientX;
           startY = event.clientY;
@@ -3455,6 +3458,7 @@
           if (!isDragging) return;
           const deltaX = event.clientX - startX;
           const deltaY = event.clientY - startY;
+          maxPointerDistance = Math.max(maxPointerDistance, Math.hypot(deltaX, deltaY));
           if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) didDrag = true;
           if (!didDrag) return;
           event.preventDefault();
@@ -3472,7 +3476,11 @@
           if (rail.hasPointerCapture(event.pointerId)) {
             rail.releasePointerCapture(event.pointerId);
           }
-          if (!didDrag && pressedImage) {
+          const didScroll =
+            Math.abs(rail.scrollLeft - scrollLeft) > 2 ||
+            Math.abs(rail.scrollTop - scrollTop) > 2;
+          const isCleanTap = !didDrag && !didScroll && maxPointerDistance <= 6;
+          if (isCleanTap && pressedImage) {
             openLightbox(pressedImage);
           }
           pressedImage = null;
@@ -3498,6 +3506,7 @@
       }
 
       document.querySelector(".close").addEventListener("click", closeLightbox);
+      lightboxImage.addEventListener("click", closeLightbox);
       lightbox.addEventListener("click", (event) => {
         if (event.target === lightbox) closeLightbox();
       });
