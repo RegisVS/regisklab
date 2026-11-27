@@ -2631,6 +2631,127 @@
           font-size: 0.82rem;
         }
       }
+      /* Project collection: one expansion level, original media proportions. */
+      .projects-heading { width: min(1280px, 100%); margin: 0 auto 32px; }
+      .videos .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+      .project-ghost { min-height: 126px; border: 1px dashed var(--line); border-radius: 16px; background: rgb(245 241 232 / 0.015); }
+      .videos .video-project > .project-summary {
+        display: flex; justify-content: space-between; gap: 24px;
+        padding: clamp(22px, 3vw, 38px); min-height: 94px;
+      }
+      .videos .video-project > .project-summary h3 {
+        margin: 0; font-size: clamp(1.5rem, 3.2vw, 2.65rem); line-height: 1.1;
+      }
+      .videos .project-card:hover { transform: none; }
+      .videos .project-card[open] > .project-summary { min-height: 94px; }
+      .project-media { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+      .project-media figure { margin: 0; min-width: 0; }
+      .project-media figure:only-child { grid-column: 1 / -1; }
+      .project-media img, .project-media video {
+        display: block; width: 100%; height: auto; max-height: 74svh;
+        object-fit: contain; background: #000; border-radius: 8px;
+      }
+      .project-media a { display: block; }
+      .project-media figcaption { padding: 12px 0 4px; color: var(--muted); font-size: .84rem; }
+      .videos summary:focus-visible, .project-media a:focus-visible, .nav a:focus-visible {
+        outline: 3px solid var(--accent); outline-offset: -4px;
+      }
+      #videos { scroll-margin-top: 110px; }
+      @media (max-width: 760px) {
+        .videos .project-grid { grid-template-columns: 1fr; }
+        .project-ghost { display: none; }
+        .project-media { grid-template-columns: 1fr; gap: 22px; }
+        .videos .video-project > .project-summary { padding: 22px 18px; }
+        .videos .project-expand { width: 32px; font-size: 1.2rem; }
+      }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+      /* Editorial category navigation: one shared exhibition space. */
+      .portfolio { padding-block: clamp(40px, 6vw, 88px); }
+      .work-tabs, .work-panel { width: min(1280px, 100%); margin-inline: auto; }
+      .work-tabs { display: grid; grid-template-columns: 1fr 1.35fr 1fr; gap: 30px; margin-bottom: 42px; }
+      .work-tabs button { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 24px 0 28px; color: var(--muted); background: none; border: 0; border-top: 1px solid var(--line); border-bottom: 3px solid transparent; cursor: pointer; text-align: left; font-size: clamp(1.7rem, 3.5vw, 3.2rem); font-weight: 750; letter-spacing: -.045em; }
+      .work-tabs button[aria-selected="true"] { color: var(--white); border-bottom-color: var(--accent); }
+      .work-tabs button:hover { color: var(--white); }
+      .tab-mark { font-size: .55em; color: var(--accent); opacity: 0; }
+      [aria-selected="true"] .tab-mark { opacity: 1; }
+      .work-panel[hidden] { display: none; }
+      .work-tabs button:focus-visible, .design-group summary:focus-visible, .photo-collection a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+      .photo-collection { columns: 3; column-gap: 20px; }
+      .photo-collection figure { margin: 0 0 20px; break-inside: avoid; }
+      .photo-collection a, .photo-collection img { display: block; width: 100%; }
+      .photo-collection img { height: auto; border-radius: 4px; }
+      .design-group { border-top: 1px solid var(--line); }
+      .design-group:last-child { border-bottom: 1px solid var(--line); }
+      .design-group summary { padding: 28px 6px; font-size: clamp(1.3rem, 2.2vw, 2rem); cursor: pointer; }
+      .design-group .photo-collection { padding: 8px 6px 28px; }
+      .art-collection { margin-top: 64px; }
+      .art-collection > h3 { font-size: 1.6rem; margin-bottom: 28px; }
+      #trabalhos, .work-panel, .design-group, #arte-grafica { scroll-margin-top: 120px; }
+      @media (max-width: 760px) {
+        .work-tabs { grid-template-columns: 1fr; gap: 0; margin-bottom: 30px; }
+        .work-tabs button { font-size: clamp(1.65rem, 7vw, 2.2rem); padding: 16px 0; border-bottom-width: 2px; }
+        .photo-collection { columns: 2; column-gap: 12px; }
+        .photo-collection figure { margin-bottom: 12px; }
+        .design-group .photo-collection { columns: 1; }
+      }
+      .video-categories { display: grid; gap: 80px; }
+      #ia { scroll-margin-top: 110px; }
+      .ai-project-dialog { box-sizing: border-box; width: min(1120px, calc(100% - 64px)); max-width: none; max-height: calc(100dvh - 64px); margin: auto; padding: 0; color: var(--white); background: #11110f; border: 1px solid rgba(232,126,51,.3); border-radius: 26px; box-shadow: 0 30px 120px #000c; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #65513c #11110f; }
+      .ai-project-dialog::backdrop { background: rgba(0,0,0,.82); backdrop-filter: blur(9px); }
+      .ai-dialog-header { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 32px; background: #11110ff5; border-bottom: 1px solid var(--line); }
+      .ai-dialog-header h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.3rem); font-weight: 600; letter-spacing: -.04em; }
+      .ai-dialog-close { flex: 0 0 44px; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff30; border-radius: 50%; background: #ffffff06; color: var(--white); font: inherit; font-size: 29px; cursor: pointer; }
+      .ai-dialog-close:hover { color: var(--accent); border-color: var(--accent); }
+      .ai-project-dialog :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+      .ai-dialog-content { padding: 28px 32px 36px; }
+      .ai-dialog-films { display: grid; gap: 30px; }
+      .ai-project-dialog figure { margin: 0; min-width: 0; }
+      .ai-project-dialog video { display: block; width: 100%; height: auto; max-height: 64dvh; object-fit: contain; background: #000; border-radius: 14px; }
+      .ai-project-dialog figcaption { margin-top: 12px; color: var(--muted); font-size: .85rem; line-height: 1.5; }
+      .ai-dialog-references { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; border-top: 1px solid var(--line); margin-top: 34px; padding-top: 28px; }
+      .ai-dialog-references:empty { display: none; }
+      .ai-dialog-references img { display: block; width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: 10px; }
+      @media (max-width: 760px) { .ai-project-dialog { width: calc(100% - 24px); max-height: calc(100dvh - 32px); border-radius: 20px; } .ai-dialog-header { padding: 16px 18px; } .ai-dialog-content { padding: 18px 18px 28px; } .ai-dialog-references { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px 12px; } .ai-project-dialog figcaption { font-size: .75rem; } }
+      .ai-project-covers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; }
+      .ai-project-cover { display: block; min-width: 0; color: var(--white); text-decoration: none; }
+      .ai-project-cover img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #080808; border-radius: 5px; }
+      .ai-project-cover h4 { margin: 18px 0 0; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 500; }
+      .ai-project-cover:hover h4 { color: var(--accent); }
+      .ai-project-cover:focus-visible { outline: 2px solid var(--accent); outline-offset: 8px; }
+      @media (max-width: 760px) { .ai-project-covers { grid-template-columns: 1fr; gap: 32px; } }
+      .video-category > h3 { margin: 0 0 32px; padding-bottom: 18px; border-bottom: 1px solid var(--line); color: var(--accent); font-size: clamp(1.8rem, 3vw, 2.6rem); }
+      .video-project-block { min-width: 0; margin-bottom: 54px; }
+      .video-project-block:last-child { margin-bottom: 0; }
+      .video-project-heading h4 { margin: 0 0 24px; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 500; }
+      /* Shared overlay finish for portfolio category containers and disclosures. */
+      #trabalhos .overlay-frame { box-sizing: border-box; min-width: 0; padding: clamp(18px, 2.4vw, 30px); background: #11110f; border: 1px solid rgba(232,126,51,.3); border-radius: 26px; box-shadow: 0 24px 80px #0006; }
+      #trabalhos .design-group.overlay-frame { padding-block: 0; }
+      #trabalhos .overlay-frame > summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 26px 0; list-style: none; color: var(--accent); }
+      #trabalhos .overlay-frame > summary::-webkit-details-marker { display: none; }
+      #trabalhos .overlay-frame > summary::after { content: "+"; font-size: 1.5rem; font-weight: 400; }
+      #trabalhos .overlay-frame[open] > summary::after { content: "−"; }
+      #trabalhos .overlay-frame[open] > summary { border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+      #trabalhos .overlay-frame > summary:focus-visible { outline-offset: 5px; border-radius: 8px; }
+      #trabalhos .overlay-frame .photo-collection { padding: 0 0 10px; }
+      #trabalhos .art-collection { margin-top: 24px; }
+      #trabalhos .overlay-frame .photo-collection img { border-radius: 10px; }
+      #trabalhos .work-panel:focus { outline: none; }
+      #trabalhos .work-panel:focus-visible { outline: 2px solid rgba(232,126,51,.4); outline-offset: 8px; border-radius: 26px; }
+      @media (max-width: 760px) { #trabalhos .overlay-frame { border-radius: 20px; } #trabalhos .overlay-frame > summary { padding-block: 22px; } }
+      /* Photography shares the approved project overlay finish, not the UA focus frame. */
+      #fotografia { box-sizing: border-box; padding: clamp(12px, 2.4vw, 30px); background: #11110f; border: 1px solid rgba(232,126,51,.3); border-radius: 26px; box-shadow: 0 24px 80px #0006; outline: none; }
+      #fotografia:focus-visible { border-color: rgba(232,126,51,.65); box-shadow: 0 0 0 2px rgba(232,126,51,.12), 0 24px 80px #0006; }
+      #fotografia .photo-collection a { border-radius: 12px; box-shadow: 0 2px 14px #0003; }
+      #fotografia .photo-collection img { border-radius: 12px; }
+      #fotografia .photo-collection a:focus-visible { outline-offset: 3px; }
+      @media (max-width: 760px) { #fotografia { border-radius: 20px; } #fotografia .photo-collection a, #fotografia .photo-collection img { border-radius: 9px; } }
+      [data-photo-collection] { columns: auto; position: relative; }
+      [data-photo-collection] > figure { position: absolute; margin: 0; }
+      @media (max-width: 760px) {
+        .video-categories { gap: 56px; }
+        .video-project-block { margin-bottom: 40px; }
+        [data-photo-collection] { column-gap: 12px; }
+      }
     </style>
   </head>
   <body>
@@ -2638,10 +2759,7 @@
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav" id="site-nav" aria-label="Navegacao">
         <a href="#showreel" data-showreel-open>Showreel</a>
-        <a href="#stylized-branded-films">Comercial</a>
-        <a href="#cinematic-vfx">Cinematic & VFX</a>
-        <a href="#nature-wildlife">3D/Animação</a>
-        <a href="#sports-performance">Sports</a>
+        <a href="#trabalhos">Trabalhos</a>
         <a href="#sobre">Sobre</a>
         <a href="#clientes">Clientes</a>
         <a href="#contact">Contato</a>
@@ -2686,10 +2804,15 @@
         </div>
       </section>
 
-      <section class="strip videos" id="videos">
-        <div class="section-panel">
-          <div class="project-grid" data-video-projects aria-label="Categorias de videos comerciais"></div>
+      <section class="strip portfolio" id="trabalhos" aria-label="Portfólio">
+        <div class="work-tabs" role="tablist" aria-label="Áreas do portfólio">
+          <button type="button" role="tab" id="tab-videos" aria-controls="videos" aria-selected="true" tabindex="0" data-work-tab="videos"><span>Vídeo</span><span class="tab-mark" aria-hidden="true">↗</span></button>
+          <button type="button" role="tab" id="tab-fotografia" aria-controls="fotografia" aria-selected="false" tabindex="-1" data-work-tab="fotografia"><span>Fotografia</span><span class="tab-mark" aria-hidden="true">↗</span></button>
+          <button type="button" role="tab" id="tab-design" aria-controls="design" aria-selected="false" tabindex="-1" data-work-tab="design"><span>Design</span><span class="tab-mark" aria-hidden="true">↗</span></button>
         </div>
+        <div id="videos" class="work-panel videos" role="tabpanel" aria-labelledby="tab-videos" tabindex="0"><div class="video-categories" data-video-projects></div></div>
+        <div id="fotografia" class="work-panel" role="tabpanel" aria-labelledby="tab-fotografia" tabindex="0" hidden><div class="photo-collection" data-photo-collection></div></div>
+        <div id="design" class="work-panel" role="tabpanel" aria-labelledby="tab-design" tabindex="0" hidden><div class="design-collection" data-design-collection></div><details class="art-collection design-group overlay-frame" id="arte-grafica"><summary>Arte gráfica</summary><div class="photo-collection" data-art-collection></div></details></div>
       </section>
 
       <section class="about-strip" id="sobre" aria-labelledby="sobre-title">
@@ -2801,61 +2924,6 @@
         </div>
       </section>
 
-      <section class="strip legacy-work" id="outros-trabalhos">
-        <details class="section-accordion legacy-accordion">
-          <summary class="section-summary">
-            <div>
-              <p class="micro">Arquivo</p>
-              <h2>Outros trabalhos</h2>
-            </div>
-            <span class="section-expand" aria-hidden="true">+</span>
-          </summary>
-          <div class="section-panel">
-            <div class="legacy-tabs" role="tablist" aria-label="Classificacoes dos outros trabalhos">
-              <button class="legacy-tab" type="button" role="tab" aria-selected="false" data-legacy-tab="photo">Fotografia</button>
-              <button class="legacy-tab" type="button" role="tab" aria-selected="false" data-legacy-tab="design">Design grafico</button>
-              <button class="legacy-tab" type="button" role="tab" aria-selected="false" data-legacy-tab="art">Arte grafica</button>
-            </div>
-            <section class="legacy-gallery" data-project-gallery="photo" aria-label="Fotografia" hidden>
-              <div class="legacy-gallery-head">
-                <h3>Fotografia</h3>
-              </div>
-              <div class="legacy-carousel">
-                <div class="legacy-rail" data-legacy-rail></div>
-                <div class="legacy-carousel-controls">
-                  <button class="arrow" type="button" data-legacy-scroll="-1" aria-label="Ver imagens anteriores">&lt;</button>
-                  <button class="arrow" type="button" data-legacy-scroll="1" aria-label="Ver proximas imagens">&gt;</button>
-                </div>
-              </div>
-            </section>
-            <section class="legacy-gallery" data-project-gallery="design" aria-label="Design grafico" hidden>
-              <div class="legacy-gallery-head">
-                <h3>Design grafico</h3>
-              </div>
-              <div class="legacy-carousel">
-                <div class="legacy-rail" data-legacy-rail></div>
-                <div class="legacy-carousel-controls">
-                  <button class="arrow" type="button" data-legacy-scroll="-1" aria-label="Ver imagens anteriores">&lt;</button>
-                  <button class="arrow" type="button" data-legacy-scroll="1" aria-label="Ver proximas imagens">&gt;</button>
-                </div>
-              </div>
-            </section>
-            <section class="legacy-gallery" data-project-gallery="art" aria-label="Arte grafica" hidden>
-              <div class="legacy-gallery-head">
-                <h3>Arte grafica</h3>
-              </div>
-              <div class="legacy-carousel">
-                <div class="legacy-rail" data-legacy-rail></div>
-                <div class="legacy-carousel-controls">
-                  <button class="arrow" type="button" data-legacy-scroll="-1" aria-label="Ver imagens anteriores">&lt;</button>
-                  <button class="arrow" type="button" data-legacy-scroll="1" aria-label="Ver proximas imagens">&gt;</button>
-                </div>
-              </div>
-            </section>
-          </div>
-        </details>
-      </section>
-
       <section class="contact" id="contact">
         <div class="contact-inner">
           <p class="micro">Contato</p>
@@ -2905,102 +2973,8 @@
       </div>
     </div>
 
+    <script src="projects.js"></script>
     <script>
-      const videoProjects = [
-        {
-          title: "Comercial",
-          slug: "stylized-branded-films",
-          category: "Publicidade / Produto / Social",
-          note: "Filmes publicitarios, produto, gastronomia, musica e universos visuais para marcas.",
-          media: [
-            { title: "Red Bolt", src: "assets/videos/ai/red-bolt-commercial.mp4", references: [
-              { title: "Character sheet do produto", src: "assets/process/ai/red-bolt-product-character-sheet.png" },
-            ] },
-            { title: "Jameson", src: "assets/videos/jameson-planned-heat.mp4", poster: "assets/video-posters/jameson-black-barrel-poster.jpg", tag: "Live Action + AI/VFX" },
-            { title: "Cuisine", src: "assets/videos/ai/cuisine-cook1.mp4", videos: [
-              { title: "Cook 1", src: "assets/videos/ai/cuisine-cook1.mp4" },
-              { title: "Preparo na cozinha", src: "assets/videos/ai/cuisine-cooks2.mp4" },
-              { title: "Food close-up", src: "assets/videos/ai/cuisine-food1.mp4" },
-            ] },
-          ],
-        },
-        {
-          title: "Cinematic & VFX",
-          slug: "cinematic-vfx",
-          category: "Cinema / VFX / Campanhas",
-          note: "Cenas cinematograficas, VFX, acao e impacto visual para campanhas e filmes de marca.",
-          media: [
-            { title: "Subject K", src: "assets/videos/ai/subject-k7f.mp4", poster: "assets/video-posters/ai/subject-k7f.jpg", references: [
-              { title: "Character sheet planeta", src: "assets/process/ai/subject-k7f-planet-sheet.png" },
-              { title: "Character sheet astronauta", src: "assets/process/ai/subject-k7f-astronaut-sheet.png" },
-              { title: "Character sheet personagem", src: "assets/process/ai/subject-k7f-character-sheet.png" },
-            ] },
-            { title: "Epics", src: "assets/videos/ai/cinematic-vfx-dragon-knight.mp4", videos: [
-              { title: "Dragon knight sequence", src: "assets/videos/ai/cinematic-vfx-dragon-knight.mp4" },
-              { title: "Dragknight 1", src: "assets/videos/ai/cinematic-vfx-dragknight1.mp4" },
-            ] },
-            { title: "Cenas de guerra", src: "assets/videos/ai/cinematic-vfx-jato1.mp4", videos: [
-              { title: "Jato 1", src: "assets/videos/ai/cinematic-vfx-jato1.mp4" },
-              { title: "Jet pursuit", src: "assets/videos/ai/cinematic-vfx-jet.mp4" },
-              { title: "Tankseed", src: "assets/videos/ai/cinematic-vfx-tank.mp4" },
-              { title: "Battlefield soldiers", src: "assets/videos/ai/cinematic-vfx-soldier.mp4" },
-            ] },
-            { title: "Concept", src: "assets/videos/ai/cinematic-vfx-glass-forest.mp4", poster: "assets/video-posters/ai/cinematic-vfx-concept.jpg", videos: [
-              { title: "Glass Forest", src: "assets/videos/ai/cinematic-vfx-glass-forest.mp4" },
-              { title: "Lantern Forest", src: "assets/videos/ai/cinematic-vfx-lantree.mp4" },
-              { title: "Sea Burst", src: "assets/videos/ai/cinematic-vfx-sea-burst.mp4" },
-              { title: "Paint Motion", src: "assets/videos/ai/cinematic-vfx-paint.mp4" },
-            ] },
-          ],
-        },
-        {
-          title: "3D/Animação",
-          slug: "nature-wildlife",
-          category: "3D / Animação / Atmosfera",
-          note: "Cenas em 3D, animacao e atmosfera para storytelling, inserts cinematograficos e marcas.",
-          media: [
-            { title: "Eagle flight", src: "assets/videos/ai/nature-wildlife-eagle.mp4", references: [
-              { title: "Scene reference", src: "assets/process/ai/nature-eagle-scene.jpg" },
-              { title: "Character sheet", src: "assets/process/ai/nature-eagle-character-sheet.jpg" },
-            ] },
-            { title: "Wolf pack", src: "assets/videos/ai/nature-wildlife-wolves.mp4", references: [
-              { title: "Character sheet", src: "assets/process/ai/nature-wolf-character-sheet.jpg" },
-            ] },
-            { title: "Lightfall", src: "assets/videos/ai/3d-animation-lightfall.mp4", videos: [
-              { title: "Lightfall Anime", src: "assets/videos/ai/3d-animation-lightfall.mp4" },
-            ], references: [
-              { title: "Character sheet Kael", src: "assets/process/ai/lightfall-kael-character-sheet.png" },
-              { title: "Character sheet minion", src: "assets/process/ai/lightfall-minion-character-sheet.png" },
-            ] },
-            { title: "JusMobile", src: "assets/videos/ai/3d-animation-jusmobile.mp4" },
-          ],
-        },
-        {
-          title: "Sports & Performance",
-          slug: "sports-performance",
-          category: "Esporte / Ritmo / Performance",
-          note: "Videos de performance com ritmo, velocidade e impacto para comerciais, reels e campanhas.",
-          media: [
-            { title: "Automobilístico", src: "assets/videos/ai/sports-performance-bike.mp4", videos: [
-              { title: "Moto no tunel", src: "assets/videos/ai/sports-performance-bike.mp4" },
-              { title: "Carro noturno", src: "assets/videos/ai/sports-performance-car.mp4" },
-            ] },
-            { title: "Dança", src: "assets/videos/ai/sports-performance-dancer.mp4", videos: [
-              { title: "Dancer spotlight", src: "assets/videos/ai/sports-performance-dancer.mp4" },
-              { title: "Danca de palco", src: "assets/videos/ai/sports-performance-dancer2.mp4" },
-            ] },
-            { title: "Basquete", src: "assets/videos/ai/sports-performance-dunk.mp4" },
-            { title: "MMA", src: "assets/videos/ai/sports-performance-mma.mp4" },
-            { title: "Skate", src: "assets/videos/ai/sports-performance-sports1.mp4" },
-            { title: "Futebol", src: "assets/videos/ai/sports-performance-chest.mp4", videos: [
-              { title: "Controle de peito", src: "assets/videos/ai/sports-performance-chest.mp4" },
-              { title: "Futebol 01", src: "assets/videos/ai/sports-performance-football-1.mp4" },
-              { title: "Futebol 02", src: "assets/videos/ai/sports-performance-football-2.mp4" },
-            ] },
-          ],
-        },
-      ];
-
       const projectGalleries = {
         photo: [
           { title: "Fotografia / Projeto 01", category: "Fotografia", indexes: [22, 5, 16, 18, 15, 21, 14, 30], prefix: "assets/fotografia/photo-", alt: "Fotografia de Régis Kraeski" },
@@ -3269,163 +3243,284 @@
         return figure;
       }
 
-      function renderProjectGallery(section) {
-        const type = section.dataset.projectGallery;
-        const projects = projectGalleries[type] || [];
-        const rail = section.querySelector("[data-legacy-rail]");
-        rail.innerHTML = "";
-
-        let imageCount = 0;
-        projects.forEach((project) => {
+      function renderPortfolioImages() {
+        const appendImages = (container, projects) => projects.forEach((project) => {
           projectItems(project).forEach((item) => {
-            const figure = createImageFigure(project, item, imageCount < 3);
-            figure.className = "legacy-slide";
-            rail.append(figure);
-            imageCount += 1;
+            const figure = document.createElement("figure");
+            const link = document.createElement("a");
+            const image = document.createElement("img");
+            image.src = imageSource(project, item);
+            image.alt = imageAlt(project, item);
+            image.loading = "lazy";
+            image.decoding = "async";
+            link.href = image.src;
+            link.target = "_blank";
+            link.rel = "noopener";
+            link.setAttribute("aria-label", "Abrir imagem: " + image.alt + " (nova aba)");
+            link.append(image);
+            figure.append(link);
+            container.append(figure);
           });
         });
-
-        section.querySelectorAll("[data-legacy-scroll]").forEach((button) => {
-          button.addEventListener("click", () => {
-            rail.scrollBy({
-              left: Number(button.dataset.legacyScroll) * Math.max(rail.clientWidth * 0.82, 280),
-              behavior: "smooth",
-            });
-          });
+        const photos = document.querySelector("[data-photo-collection]");
+        appendImages(photos, projectGalleries.photo);
+        [...photos.children].slice(0, 6).forEach((figure) => photos.append(figure));
+        [...photos.children].reverse().forEach((figure) => photos.append(figure));
+        const selectedPhotoIds = [1, 17, 6, 29, 4, 24, 2, 10, 28, 26, 18, 16];
+        const currentPhotos = [...photos.children];
+        const selectedPhotos = selectedPhotoIds.map((id) => currentPhotos.find((figure) => figure.querySelector("img").getAttribute("src").endsWith("photo-" + pad(id) + ".jpg")));
+        const remainingPhotos = currentPhotos.filter((figure) => !selectedPhotos.includes(figure));
+        photos.replaceChildren(...selectedPhotos, ...remainingPhotos);
+        // Intrinsic dimensions reserve space before lazy images load. One continuous
+        // shortest-column layout keeps the effects-first order without isolated blocks.
+        const photoSizes = [[2800,4200],[700,1050],[1200,1200],[1200,800],[480,720],[2800,1867],[2800,4200],[1200,1200],[2800,4200],[1400,934],[1200,1800],[426,640],[1200,1200],[2800,1867],[640,960],[748,1122],[2800,4200],[748,1122],[426,640],[1200,800],[748,1121],[748,1122],[426,640],[1200,800],[960,640],[426,640],[1200,800],[700,1050],[1400,933],[2800,1867],[962,640],[426,640]];
+        const photoFigures = [...photos.children];
+        photoFigures.forEach((figure) => {
+          const image = figure.querySelector("img");
+          const id = Number(image.getAttribute("src").match(/photo-(\d+)/)[1]);
+          [image.width, image.height] = photoSizes[id - 1];
         });
+        const layoutPhotos = () => {
+          const width = photos.clientWidth;
+          if (!width) return;
+          const columns = window.matchMedia("(max-width: 760px)").matches ? 2 : 3;
+          const gap = columns === 2 ? 12 : 20;
+          const itemWidth = (width - gap * (columns - 1)) / columns;
+          const heights = Array(columns).fill(0);
+          photoFigures.forEach((figure) => {
+            const image = figure.querySelector("img");
+            const column = heights.indexOf(Math.min(...heights));
+            figure.style.width = itemWidth + "px";
+            figure.style.left = column * (itemWidth + gap) + "px";
+            figure.style.top = heights[column] + "px";
+            heights[column] += itemWidth * Number(image.getAttribute("height")) / Number(image.getAttribute("width")) + gap;
+          });
+          photos.style.height = Math.max(...heights) - gap + "px";
+        };
+        new ResizeObserver(layoutPhotos).observe(photos);
+        layoutPhotos();
+        appendImages(document.querySelector("[data-art-collection]"), projectGalleries.art);
+        const design = document.querySelector("[data-design-collection]");
+        {
+          const group = document.createElement("details");
+          group.className = "design-group overlay-frame";
+          group.id = "social-media";
+          const summary = document.createElement("summary");
+          summary.textContent = "Social Media";
+          const collection = document.createElement("div");
+          collection.className = "photo-collection";
+          appendImages(collection, projectGalleries.design);
+          const socialMediaOrder = [3,22,13,0,1,4,18,23,8,21,20,10,9,14,6,11,7,12,19,17,24,5,16,2,15];
+          const socialMediaFigures = [...collection.children];
+          socialMediaOrder.forEach((index) => collection.append(socialMediaFigures[index]));
+          group.append(summary, collection);
+          design.append(group);
+        }
       }
 
-      function setupLegacyTabs() {
-        const legacyWork = document.querySelector(".legacy-work");
-        if (!legacyWork) return;
-
-        const accordion = legacyWork.querySelector(".legacy-accordion");
-        const tabs = Array.from(legacyWork.querySelectorAll("[data-legacy-tab]"));
-        const galleries = Array.from(legacyWork.querySelectorAll("[data-project-gallery]"));
-
-        const setActiveGallery = (activeType) => {
+      function setupWorkTabs() {
+        const tabs = [...document.querySelectorAll("[data-work-tab]")];
+        const panels = [...document.querySelectorAll(".work-panel")];
+        const activate = (id, updateHash = false) => {
           tabs.forEach((tab) => {
-            tab.setAttribute("aria-selected", String(Boolean(activeType) && tab.dataset.legacyTab === activeType));
+            const active = tab.dataset.workTab === id;
+            tab.setAttribute("aria-selected", String(active));
+            tab.tabIndex = active ? 0 : -1;
           });
-
-          galleries.forEach((gallery) => {
-            const isActive = gallery.dataset.projectGallery === activeType;
-            gallery.hidden = !isActive;
-            if (!isActive) {
-              gallery.querySelectorAll("details.project-card[open]").forEach((card) => {
-                card.open = false;
-              });
-            }
+          panels.forEach((panel) => {
+            panel.hidden = panel.id !== id;
+            if (panel.hidden) panel.querySelectorAll("video").forEach((video) => video.pause());
           });
+          if (updateHash) history.replaceState(null, "", "#" + id);
         };
-
-        tabs.forEach((tab) => {
-          tab.addEventListener("click", () => setActiveGallery(tab.dataset.legacyTab));
+        tabs.forEach((tab, index) => {
+          tab.addEventListener("click", () => activate(tab.dataset.workTab, true));
+          tab.addEventListener("keydown", (event) => {
+            let next;
+            if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+            if (event.key === "ArrowLeft") next = (index + tabs.length - 1) % tabs.length;
+            if (event.key === "Home") next = 0;
+            if (event.key === "End") next = tabs.length - 1;
+            if (next === undefined) return;
+            event.preventDefault();
+            tabs[next].focus();
+            activate(tabs[next].dataset.workTab, true);
+          });
         });
+        const followHash = (hash = location.hash) => {
+          const id = decodeURIComponent(hash.slice(1));
+          const target = document.getElementById(/^design-projeto-[1-5]$/.test(id) ? "social-media" : id);
+          const panel = target?.closest(".work-panel");
+          if (panel) {
+            activate(panel.id);
+            if (target.matches("details")) target.open = true;
+          } else if (hash === "#outros-trabalhos") {
+            activate("fotografia");
+            document.querySelector("#trabalhos").scrollIntoView();
+          }
+        };
+        document.querySelectorAll('a[href^="#"]').forEach((link) => {
+          link.addEventListener("click", () => followHash(link.getAttribute("href")));
+        });
+        window.addEventListener("hashchange", () => followHash());
+        followHash();
+      }
 
-        accordion?.addEventListener("toggle", () => {
-          if (accordion.open) {
-            setActiveGallery(null);
+      const aiDialog = document.createElement("dialog");
+      aiDialog.id = "ai-project-dialog";
+      aiDialog.className = "ai-project-dialog";
+      aiDialog.setAttribute("aria-labelledby", "ai-dialog-title");
+      aiDialog.innerHTML = '<header class="ai-dialog-header"><h2 id="ai-dialog-title"></h2><button class="ai-dialog-close" type="button" aria-label="Fechar projeto" autofocus>×</button></header><div class="ai-dialog-content"><div class="ai-dialog-films"></div><div class="ai-dialog-references"></div></div>';
+      document.body.append(aiDialog);
+      const aiClose = aiDialog.querySelector(".ai-dialog-close");
+      let aiReturnFocus, aiScrollY = 0, aiBodyStyle = "", aiRootOverflow = "";
+      function closeAIProject() { if (aiDialog.open) aiDialog.close(); }
+      aiClose.addEventListener("click", closeAIProject);
+      let aiBackdropDown = false;
+      const outsideAIDialog = (event) => {
+        const r = aiDialog.getBoundingClientRect();
+        return event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom;
+      };
+      aiDialog.addEventListener("pointerdown", (event) => { aiBackdropDown = outsideAIDialog(event); });
+      aiDialog.addEventListener("click", (event) => { if (aiBackdropDown && outsideAIDialog(event)) closeAIProject(); });
+      aiDialog.addEventListener("close", () => {
+        aiDialog.querySelectorAll("video").forEach((video) => video.pause());
+        document.body.style.cssText = aiBodyStyle;
+        document.documentElement.style.overflow = aiRootOverflow;
+        window.scrollTo({ top: aiScrollY, behavior: "instant" });
+        aiReturnFocus?.focus({ preventScroll: true });
+      });
+      // Native modal dialog makes the background inert and keeps keyboard focus inside.
+      aiDialog.addEventListener("keydown", (event) => {
+        if (event.key !== "Tab") return;
+        const controls = [...aiDialog.querySelectorAll('button, a[href], video[controls]')];
+        const first = controls[0], last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last && last.tagName !== "VIDEO") { event.preventDefault(); first.focus(); }
+      });
+      function openAIProject(project, trigger) {
+        document.querySelectorAll("video").forEach((video) => video.pause());
+        aiDialog.querySelector("h2").textContent = project.title;
+        const films = aiDialog.querySelector(".ai-dialog-films");
+        const references = aiDialog.querySelector(".ai-dialog-references");
+        films.replaceChildren(); references.replaceChildren();
+        project.media.forEach((item) => {
+          const figure = document.createElement("figure");
+          const caption = document.createElement("figcaption");
+          caption.textContent = item.title;
+          if (item.type === "video") {
+            const video = document.createElement("video");
+            video.src = item.src; video.controls = true; video.playsInline = true; video.preload = "metadata";
+            video.setAttribute("aria-label", item.title);
+            if (item.poster) video.poster = item.poster;
+            video.addEventListener("play", () => aiDialog.querySelectorAll("video").forEach((other) => { if (other !== video) other.pause(); }));
+            figure.append(video, caption); films.append(figure);
+          } else {
+            const link = document.createElement("a");
+            link.href = item.src; link.target = "_blank"; link.rel = "noopener";
+            link.setAttribute("aria-label", item.title + " (nova aba)");
+            const image = document.createElement("img");
+            image.src = item.src; image.alt = item.title; image.loading = "lazy";
+            link.append(image); figure.append(link, caption); references.append(figure);
           }
         });
-
-        setActiveGallery(null);
-      }
-
-      function videoPoster(src) {
-        return src
-          .replace(/^assets\/videos\//, "assets/video-posters/")
-          .replace(/\.mp4$/i, ".jpg");
-      }
-
-      function renderReferences(item) {
-        const references = item.references || [];
-        if (!references.length) return "";
-
-        return `
-          <div class="reference-grid" aria-label="Arquivos de referencia do projeto">
-            ${references.map((reference) => `
-              <figure>
-                <img src="${reference.src}" alt="${reference.title}" loading="lazy" decoding="async" draggable="false" />
-                <figcaption>${reference.title}</figcaption>
-              </figure>
-            `).join("")}
-          </div>
-        `;
+        if (!aiDialog.open) {
+          aiReturnFocus = trigger; aiScrollY = window.scrollY;
+          aiBodyStyle = document.body.style.cssText; aiRootOverflow = document.documentElement.style.overflow;
+          document.body.style.position = "fixed"; document.body.style.top = -aiScrollY + "px";
+          document.body.style.width = "100%"; document.body.style.overflow = "hidden";
+          document.documentElement.style.overflow = "hidden";
+          aiDialog.showModal();
+        }
+        aiDialog.scrollTop = 0; aiClose.focus({ preventScroll: true });
       }
 
       function renderVideoProjects() {
         const grid = document.querySelector("[data-video-projects]");
         if (!grid) return;
-        grid.innerHTML = "";
-
-        videoProjects.forEach((project) => {
-          const media = project.media || [];
-          const clipMarkup = media.map((item) => {
-            const videos = item.videos?.length ? item.videos : [{ title: item.title, src: item.src }];
-            const clipPoster = item.poster || videoPoster(videos[0].src);
-            const referenceCount = item.references?.length || 0;
-            const videoCountLabel = videos.length === 1 ? "1 video" : `${videos.length} videos`;
-            const fileCountLabel = referenceCount ? `${videos.length + referenceCount} arquivos` : videoCountLabel;
-            const videoMarkup = videos.map((video) => `
-              <figure class="clip-video-item">
-                <video controls playsinline preload="metadata" poster="${video.poster || item.poster || videoPoster(video.src)}" src="${video.src}"></video>
-                ${videos.length > 1 ? `<figcaption>${video.title}</figcaption>` : ""}
-              </figure>
-            `).join("");
-            return `
-              <details class="clip-project">
-                <summary class="clip-summary">
-                  <div class="clip-thumb">
-                    <img src="${clipPoster}" alt="${item.title}" loading="lazy" decoding="async" draggable="false" />
-                    <span class="clip-expand" aria-hidden="true">+</span>
-                  </div>
-                  <div class="clip-copy">
-                    <p class="clip-meta">${fileCountLabel}</p>
-                    <h4>${item.title}</h4>
-                    ${item.tag ? `<span class="clip-tag">${item.tag}</span>` : ""}
-                  </div>
-                </summary>
-                <div class="clip-panel ${referenceCount ? "" : "is-single"}">
-                  ${videoMarkup}
-                  ${renderReferences(item)}
-                </div>
-              </details>
-            `;
-          }).join("");
-          const details = document.createElement("details");
-          details.className = "project-card video-project";
+        grid.replaceChildren();
+        ["IA", "Social Media"].forEach((category) => {
+          const section = document.createElement("section");
+          section.className = "video-category overlay-frame";
+          if (category === "IA") section.id = "ia";
+          const categoryHeading = document.createElement("h3");
+          categoryHeading.textContent = category;
+          section.append(categoryHeading);
+          grid.append(section);
+          const covers = document.createElement("div");
+          covers.className = "ai-project-covers";
+          if (category === "IA") section.append(covers);
+          videoProjects.filter((project) => project.category === category).forEach((project) => {
+          if (category === "IA") {
+            const link = document.createElement("a");
+            link.className = "ai-project-cover";
+            link.id = project.slug;
+            link.href = "project.html?id=" + encodeURIComponent(project.slug);
+            link.setAttribute("aria-haspopup", "dialog");
+            link.setAttribute("aria-controls", "ai-project-dialog");
+            link.addEventListener("click", (event) => {
+              if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              openAIProject(project, link);
+            });
+            const image = document.createElement("img");
+            image.src = project.media.find((item) => item.poster).poster;
+            image.alt = "";
+            image.loading = "lazy";
+            image.decoding = "async";
+            const name = document.createElement("h4");
+            name.textContent = project.title;
+            link.append(image, name);
+            covers.append(link);
+            return;
+          }
+          const details = document.createElement("article");
+          details.className = "video-project-block";
           details.id = project.slug;
-          details.innerHTML = `
-            <summary class="project-summary">
-              <div class="project-body">
-                <div class="project-title-row">
-                  <h3>${project.title}</h3>
-                  <span class="project-expand" aria-hidden="true">+</span>
-                </div>
-              </div>
-            </summary>
-            <div class="project-panel">
-              <div class="video-expanded">
-                <div class="ai-clip-grid">
-                  ${clipMarkup}
-                </div>
-              </div>
-            </div>
-          `;
-          grid.append(details);
-          details.querySelectorAll(".reference-grid img").forEach((image) => {
-            image.addEventListener("click", () => openLightbox(image));
-          });
-          details.querySelectorAll(".ai-clip-grid").forEach((clipGrid) => {
-            clipGrid.addEventListener("toggle", (event) => {
-              const opened = event.target;
-              if (!opened.matches("details.clip-project") || !opened.open) return;
-              clipGrid.querySelectorAll("details.clip-project[open]").forEach((card) => {
-                if (card !== opened) card.open = false;
-              });
-            }, true);
-          });
+          const summary = document.createElement("header");
+          summary.className = "video-project-heading";
+          const heading = document.createElement("h4");
+          heading.textContent = project.title;
+          summary.append(heading);
+          const panel = document.createElement("div");
+          panel.className = "project-media";
+          panel.setAttribute("aria-label", project.title + " — fotos e vídeos");
+          project.media.forEach((item) => {
+              const figure = document.createElement("figure");
+              const media = document.createElement(item.type === "video" ? "video" : "img");
+              media.src = item.src;
+              if (item.type === "video") {
+                media.controls = true;
+                media.playsInline = true;
+                media.preload = "metadata";
+                media.setAttribute("aria-label", project.title + " — " + item.title);
+                if (item.poster) media.poster = item.poster;
+                media.addEventListener("play", () => {
+                  document.querySelectorAll("video").forEach((other) => {
+                    if (other !== media) other.pause();
+                  });
+                });
+                figure.append(media);
+              } else {
+                media.alt = project.title + " — " + item.title;
+                media.loading = "lazy";
+                media.decoding = "async";
+                const link = document.createElement("a");
+                link.href = item.src;
+                link.target = "_blank";
+                link.rel = "noopener";
+                link.setAttribute("aria-label", "Abrir imagem: " + media.alt + " (nova aba)");
+                link.append(media);
+                figure.append(link);
+              }
+              const caption = document.createElement("figcaption");
+              caption.textContent = item.title;
+              figure.append(caption);
+              panel.append(figure);
+            });
+          details.append(summary, panel);
+          section.append(details);
+        });
         });
       }
 
@@ -3505,7 +3600,6 @@
       }
 
       document.querySelector(".close").addEventListener("click", closeLightbox);
-      lightboxImage.addEventListener("click", closeLightbox);
       lightbox.addEventListener("click", (event) => {
         if (event.target === lightbox) closeLightbox();
       });
@@ -3545,8 +3639,8 @@
       });
 
       renderVideoProjects();
-      document.querySelectorAll("[data-project-gallery]").forEach(renderProjectGallery);
-      setupLegacyTabs();
+      renderPortfolioImages();
+      setupWorkTabs();
 
 
 

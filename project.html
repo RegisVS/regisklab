@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto — Régis Kraeski</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b0b0b;color:#f5f1e8;font-family:Arial,Helvetica,sans-serif}main{width:min(1200px,calc(100% - 64px));margin:0 auto;padding:42px 0 80px}a{color:inherit}.back{display:inline-block;padding:12px 0;text-decoration:none;color:#d7b16b}.back:hover{text-decoration:underline}a:focus-visible,video:focus-visible{outline:2px solid #d7b16b;outline-offset:6px}header{margin:32px 0}header p{color:#d7b16b;font-size:.85rem;letter-spacing:.15em}h1{font-size:clamp(2.4rem,6vw,4.8rem);font-weight:500;letter-spacing:-.04em;margin:12px 0 36px}figure{margin:0;min-width:0}video{display:block;width:100%;height:auto;max-height:78svh;object-fit:contain;background:#000;border-radius:5px}figcaption{padding:14px 0;color:#b9b6af;font-size:.9rem}.films{display:grid;gap:42px}.references{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:52px;padding-top:32px;border-top:1px solid #34322d}.references:empty{display:none}.references img{display:block;width:100%;height:auto;max-height:340px;object-fit:contain;background:#000}.references a{display:block}.footer-back{margin-top:52px;border-top:1px solid #34322d;padding-top:24px}@media(max-width:700px){main{width:calc(100% - 36px);padding-top:20px}header{margin-top:24px}.references{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px}.references figcaption{font-size:.78rem}video{max-height:75svh}}
+</style>
+</head>
+<body><main><a class="back" href="index.html#ia">← Voltar à seleção · IA</a><header><p>IA</p><h1 id="title">Projeto</h1></header><div class="films" id="films"></div><div class="references" id="references"></div><footer class="footer-back"><a class="back" href="index.html#ia">← Voltar à seleção · IA</a></footer><noscript>Ative JavaScript para visualizar as mídias do projeto.</noscript></main>
+<script src="projects.js"></script>
+<script>
+const project = videoProjects.find(item => item.slug === new URLSearchParams(location.search).get('id') && item.category === 'IA');
+if (!project) {
+  document.querySelector('#title').textContent = 'Projeto não encontrado';
+} else {
+  document.title = project.title + ' — Régis Kraeski';
+  document.querySelector('#title').textContent = project.title;
+  project.media.forEach(item => {
+    const figure = document.createElement('figure');
+    const caption = document.createElement('figcaption');
+    caption.textContent = item.title;
+    if (item.type === 'video') {
+      const video = document.createElement('video');
+      video.src = item.src;
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      video.setAttribute('aria-label', item.title);
+      if (item.poster) video.poster = item.poster;
+      video.addEventListener('play', () => document.querySelectorAll('video').forEach(other => { if (other !== video) other.pause(); }));
+      figure.append(video, caption);
+      document.querySelector('#films').append(figure);
+    } else {
+      const link = document.createElement('a');
+      link.href = item.src;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.setAttribute('aria-label', item.title + ' (nova aba)');
+      const image = document.createElement('img');
+      image.src = item.src;
+      image.alt = item.title;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      link.append(image);
+      figure.append(link, caption);
+      document.querySelector('#references').append(figure);
+    }
+  });
+}
+window.addEventListener('pagehide', () => document.querySelectorAll('video').forEach(video => video.pause()));
+</script></body></html>
